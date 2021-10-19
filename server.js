@@ -1,14 +1,18 @@
 // IMPORT DEPENDENCIES AND REQUIRED FILE
 const express = require('express')
 const morgan = require('morgan')
+const dotenv = require('dotenv')
 
 // LOAD DB CONFIG
 const connectDB = require('./config/db')
 
+// LOAD ENV CONFIG
+dotenv.config({ path: './config/config.env' })
+
 // CREATE EXPRESS APP
 const app = express()
-const PORT = process.env.PORT || 2021
-const HOST = process.env.HOST || 'pcku.com'
+const PORT = process.env.PORT || 80
+const HOST = process.env.HOST || '0.0.0.0'
 
 // LOGGER (if on development mode)
 if (process.env.NODE_ENV === 'development') {
