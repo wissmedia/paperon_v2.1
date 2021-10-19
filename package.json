@@ -1,0 +1,25 @@
+{
+  "name": "paperon_v2.1",
+  "version": "1.0.0",
+  "description": "Clone of paperon_v2",
+  "main": "server.js",
+  "scripts": {
+    "prod": "cross-env NODE_ENV=production node app",
+    "dev": "cross-env NODE_ENV=development nodemon app"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/wissmedia/paperon_v2.1.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/wissmedia/paperon_v2.1/issues"
+  },
+  "homepage": "https://github.com/wissmedia/paperon_v2.1#readme",
+  "devDependencies": {
+    "cross-env": "^7.0.3",
+    "nodemon": "^2.0.13"
+  }
+}
