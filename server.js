@@ -3,6 +3,9 @@ const express = require('express')
 const path = require('path')
 const dotenv = require('dotenv')
 const morgan = require('morgan')
+const passport = require('passport')
+const session = require('express-session')
+const MongoStore = require('connect-mongo')
 
 // LOAD DB CONFIG
 const connectDB = require('./config/db')
@@ -10,6 +13,8 @@ const connectDB = require('./config/db')
 // LOAD ENV CONFIG
 dotenv.config({ path: './config/config.env' })
 
+// LOAD PASSPORT CONFIG
+require('./config/passport')(passport)
 
 // CREATE EXPRESS APP
 const app = express()
@@ -36,6 +41,31 @@ if (process.env.NODE_ENV === 'development') {
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs')
 
+// SESSIONS
+const maxAge = 60 * 60 * 1000 * 24 // 1 day
+app.use(session({
+  secret: process.env.PASSPORT_SECRET,
+  resave: false,
+  saveUninitialized: false,
+  cookie: {
+    path: '/',
+    httpOnly: true,
+    secure: false,
+    maxAge: maxAge,
+  },
+  store: MongoStore.create({ mongoUrl: process.env.MONGO_URI }),
+}))
+
+// PASSPORT MIDDLEWARE
+app.use(passport.initialize())
+app.use(passport.session())
+
+// SET USER AS GLOBAL VARIABLE
+app.use(function (req, res, next) {
+  res.locals.user = req.user || null
+  next()
+})
+
 // SET STATIC FOLDER
 app.use(express.static(path.join(__dirname, 'public')))
 
@@ -45,6 +75,9 @@ app.use(express.static(path.join(__dirname, 'public')))
 app.get('/', (req, res) => {
   res.render('root/index', { navTitle: 'Hello Paperon - Root' })
 })
+// @desc    App Auth Route
+// @route   GET /auth
+app.use('/auth', require('./routes/auth'))
 // @desc    App Author Route
 // @route   GET /author
 app.get('/author', (req, res) => {
