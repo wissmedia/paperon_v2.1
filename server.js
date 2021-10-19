@@ -14,6 +14,10 @@ const app = express()
 const PORT = process.env.PORT || 80
 const HOST = process.env.HOST || '0.0.0.0'
 
+// BODY PARSER
+app.use(express.urlencoded({ extended: true }))
+app.use(express.json())
+
 // LOGGER (if on development mode)
 if (process.env.NODE_ENV === 'development') {
   app.use(morgan('dev'))
