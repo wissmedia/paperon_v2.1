@@ -24,8 +24,25 @@ if (process.env.NODE_ENV === 'development') {
 }
 
 // ROUTES LISTS
+// @desc    App Root Route
+// @route   GET /
 app.get('/', (req,res) => {
-  res.json('Hello Paperon')
+  res.json('Hello Paperon - root')
+})
+// @desc    App Author Route
+// @route   GET /author
+app.get('/author', (req,res) => {
+  res.json('Hello Paperon - author')
+})
+// @desc    App Responden Route
+// @route   GET /responden
+app.get('/responden', (req,res) => {
+  res.json('Hello Paperon - responden')
+})
+// @desc    App Admin Route
+// @route   GET /admin
+app.get('/admin', (req,res) => {
+  res.json('Hello Paperon - admin')
 })
 
 // CONNECT TO DB
