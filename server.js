@@ -40,17 +40,17 @@ app.get('/', (req, res) => {
 // @desc    App Author Route
 // @route   GET /author
 app.get('/author', (req, res) => {
-  res.json('Hello Paperon - author')
+  res.render('author/index', { navTitle: 'Hello Paperon - Author' })
 })
 // @desc    App Responden Route
 // @route   GET /responden
 app.get('/responden', (req, res) => {
-  res.json('Hello Paperon - responden')
+  res.render('responden/index', { navTitle: 'Hello Paperon - Responden' })
 })
 // @desc    App Admin Route
 // @route   GET /admin
 app.get('/admin', (req, res) => {
-  res.json('Hello Paperon - admin')
+  res.render('admin/index', { navTitle: 'Hello Paperon - Admin' })
 })
 
 // CONNECT TO DB
