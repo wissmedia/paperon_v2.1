@@ -10,12 +10,20 @@ const connectDB = require('./config/db')
 // LOAD ENV CONFIG
 dotenv.config({ path: './config/config.env' })
 
+
 // CREATE EXPRESS APP
 const app = express()
 const PORT = process.env.PORT || 80
 const HOST = process.env.HOST || '0.0.0.0'
 
-// BODY PARSER
+// GLOBAL VARIABLES
+app.locals.appNames = {
+  title: 'Paperon',
+  subtitle: 'Survei dan Kuesioner',
+  version: '1.2.1'
+}
+
+// USE BODY PARSER
 app.use(express.urlencoded({ extended: true }))
 app.use(express.json())
 
