@@ -1,7 +1,8 @@
 // IMPORT DEPENDENCIES AND REQUIRED FILE
 const express = require('express')
-const morgan = require('morgan')
+const path = require('path')
 const dotenv = require('dotenv')
+const morgan = require('morgan')
 
 // LOAD DB CONFIG
 const connectDB = require('./config/db')
@@ -23,25 +24,32 @@ if (process.env.NODE_ENV === 'development') {
   app.use(morgan('dev'))
 }
 
+// SET EJS VIEW ENGINE
+app.set('views', path.join(__dirname, 'views'));
+app.set('view engine', 'ejs')
+
+// SET STATIC FOLDER
+app.use(express.static(path.join(__dirname, 'public')))
+
 // ROUTES LISTS
 // @desc    App Root Route
 // @route   GET /
-app.get('/', (req,res) => {
-  res.json('Hello Paperon - root')
+app.get('/', (req, res) => {
+  res.render('root/index', { navTitle: 'Hello Paperon - Root' })
 })
 // @desc    App Author Route
 // @route   GET /author
-app.get('/author', (req,res) => {
+app.get('/author', (req, res) => {
   res.json('Hello Paperon - author')
 })
 // @desc    App Responden Route
 // @route   GET /responden
-app.get('/responden', (req,res) => {
+app.get('/responden', (req, res) => {
   res.json('Hello Paperon - responden')
 })
 // @desc    App Admin Route
 // @route   GET /admin
-app.get('/admin', (req,res) => {
+app.get('/admin', (req, res) => {
   res.json('Hello Paperon - admin')
 })
 
