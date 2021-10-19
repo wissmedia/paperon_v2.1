@@ -1,6 +1,9 @@
 const router = require('express').Router()
-const { ensureAuth } = require('../middleware/auth')
 
-
+// @desc    App Root Route
+// @route   GET /
+router.get('/', (req, res) => {
+  res.render('root/index', { navTitle: 'Hello Paperon - Root' })
+})
 
 module.exports = router

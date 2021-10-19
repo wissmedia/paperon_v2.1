@@ -1,6 +1,9 @@
 const router = require('express').Router()
-const { ensureAuth } = require('../middleware/auth')
 
-
+// @desc    Responden Index Page
+// @route   GET /responden
+router.get('/', (req, res) => {
+  res.render('responden/index', { navTitle: 'Hello Paperon - Responden' })
+})
 
 module.exports = router

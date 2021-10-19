@@ -76,27 +76,28 @@ app.use(express.static(path.join(__dirname, 'public')))
 // ROUTES LISTS
 // @desc    App Root Route
 // @route   GET /
-// @note    Check if user is authenticate (true -> /author, false -> /)
-app.get('/', isAuth, (req, res) => {
-  res.render('root/index', { navTitle: 'Hello Paperon - Root' })
-})
+// @note    Check if user is authenticate (true -> '/author', false -> '/')
+app.get('/', isAuth, require('./routes/root'))
+
 // @desc    App Auth Route
 // @route   GET /auth
+// @note    Route to authenticated user
 app.use('/auth', require('./routes/auth'))
-// @desc    App Author Route
-// @route   GET /author
-app.get('/author', [ensureAuth, isAuthor], (req, res) => {
-  res.render('author/index', { navTitle: 'Hello Paperon - Author' })
-})
-// @desc    App Responden Route
-// @route   GET /responden
-app.get('/responden', (req, res) => {
-  res.render('responden/index', { navTitle: 'Hello Paperon - Responden' })
-})
+
 // @desc    App Admin Route
 // @route   GET /admin
 // @note    Check if user is authenticate and have role as admin
-app.get('/admin', [ensureAuth, isAdmin], require('./routes/admin'))
+app.use('/admin', [ensureAuth, isAdmin], require('./routes/admin'))
+
+// @desc    App Author Route
+// @route   GET /author
+// @note    Check if user is authenticate and have role as author
+app.use('/author', [ensureAuth, isAuthor], require('./routes/author'))
+
+// @desc    App Responden Route
+// @route   GET /responden
+// @note    Authenticated user have role as responden
+app.use('/responden', require('./routes/responden'))
 
 // CONNECT TO DB
 connectDB()
