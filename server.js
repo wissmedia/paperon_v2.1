@@ -7,6 +7,10 @@ const passport = require('passport')
 const session = require('express-session')
 const MongoStore = require('connect-mongo')
 
+// IMPORT AUTH AND ROLE MIDDLEWARE
+const { ensureAuth, isAuth } = require('./middleware/auth')
+const { isAdmin, isAuthor } = require('./middleware/role')
+
 // LOAD DB CONFIG
 const connectDB = require('./config/db')
 
@@ -72,7 +76,8 @@ app.use(express.static(path.join(__dirname, 'public')))
 // ROUTES LISTS
 // @desc    App Root Route
 // @route   GET /
-app.get('/', (req, res) => {
+// @note    Check if user is authenticate (true -> /author, false -> /)
+app.get('/', isAuth, (req, res) => {
   res.render('root/index', { navTitle: 'Hello Paperon - Root' })
 })
 // @desc    App Auth Route
@@ -80,7 +85,7 @@ app.get('/', (req, res) => {
 app.use('/auth', require('./routes/auth'))
 // @desc    App Author Route
 // @route   GET /author
-app.get('/author', (req, res) => {
+app.get('/author', [ensureAuth, isAuthor], (req, res) => {
   res.render('author/index', { navTitle: 'Hello Paperon - Author' })
 })
 // @desc    App Responden Route
@@ -90,9 +95,8 @@ app.get('/responden', (req, res) => {
 })
 // @desc    App Admin Route
 // @route   GET /admin
-app.get('/admin', (req, res) => {
-  res.render('admin/index', { navTitle: 'Hello Paperon - Admin' })
-})
+// @note    Check if user is authenticate and have role as admin
+app.get('/admin', [ensureAuth, isAdmin], require('./routes/admin'))
 
 // CONNECT TO DB
 connectDB()
