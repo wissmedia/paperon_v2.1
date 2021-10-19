@@ -1,5 +1,6 @@
 // IMPORT DEPENDENCIES AND REQUIRED FILE
 const express = require('express')
+const morgan = require('morgan')
 
 // LOAD DB CONFIG
 const connectDB = require('./config/db')
@@ -8,6 +9,11 @@ const connectDB = require('./config/db')
 const app = express()
 const PORT = process.env.PORT || 2021
 const HOST = process.env.HOST || 'pcku.com'
+
+// LOGGER (if on development mode)
+if (process.env.NODE_ENV === 'development') {
+  app.use(morgan('dev'))
+}
 
 // ROUTES LISTS
 app.get('/', (req,res) => {
