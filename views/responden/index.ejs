@@ -4,12 +4,13 @@
 <%- include('../partials/head.ejs') %>
 
   <body>
-    <h1>
-      <%= navTitle %>
-    </h1>
+    <!-- NAV PARTIALS -->
+    <%- include('../partials/nav.ejs') %>
 
-    <!-- SCRIPT PARTIALS -->
-    <%- include('../partials/scripts.ejs') %>
+      <!-- MODAL MENU -->
+      <%- include('../partials/modal-auth.ejs') %>
+        <!-- SCRIPT PARTIALS -->
+        <%- include('../partials/scripts.ejs') %>
   </body>
 
 </html>

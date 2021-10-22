@@ -1,0 +1,66 @@
+<div class="modal" id="modalMenuAkun">
+  <div class="modal-content">
+    <div class="modal-kepala">
+      <span class="close">&times;</span>
+    </div>
+    <% if(user){ %>
+      <div class="modal-badan">
+        <div class="profile" id="username">
+          <div class="dpAkun">
+            <div>
+              <img src="<%= user.image %> " width="50" height="50" alt="User Image">
+            </div>
+            <h1>
+              <%= user.displayName %>
+            </h1>
+            <h3>
+              <%= user.email %>
+            </h3>
+          </div>
+        </div>
+        <a href="/auth/logout">
+          <div class="list-menu-container" id="logout">
+            <i class="fas fa-sign-out-alt"></i>
+            <span class="label-list">
+              Keluar
+            </span>
+          </div>
+        </a>
+        <a href="/info">
+          <div class="list-menu-container">
+            <i class="fas fa-info-circle"></i>
+            <span class="label-list">
+              v<%= appNames.version %>
+            </span>
+          </div>
+        </a>
+      </div>
+      <% }else{ %>
+        <div class="form fadeIn">
+          <div class="logo-form fadeInAtas">
+            <img src="/logo/72.png" width="50" height="50" alt="Logo">
+            <h3>
+              <%= appNames.title %>
+            </h3>
+          </div>
+          <div class="fadeIn">
+            <h4>
+              <%= appNames.subtitle %>
+            </h4>
+          </div>
+          <div class="fadeIn">
+            <h6>
+              v<%= appNames.version %>
+            </h6>
+          </div>
+          <br>
+          <a href="/auth/google">
+            <button class="tombol-md bunder fadeInBawah">
+              <i class="fab fa-google left"></i> Masuk dengan Google
+            </button>
+          </a>
+        </div>
+        <% } %>
+
+  </div>
+</div>

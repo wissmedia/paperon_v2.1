@@ -77,7 +77,9 @@ app.use(express.static(path.join(__dirname, 'public')))
 // @desc    App Root Route
 // @route   GET /
 // @note    Check if user is authenticate (true -> '/author', false -> '/')
-app.get('/', isAuth, require('./routes/root'))
+app.get('/', isAuth, (req, res) => {
+  res.render('root/index', { navTitle: 'Hello Paperon - Root' })
+})
 
 // @desc    App Auth Route
 // @route   GET /auth
@@ -97,7 +99,7 @@ app.use('/author', [ensureAuth, isAuthor], require('./routes/author'))
 // @desc    App Responden Route
 // @route   GET /responden
 // @note    Authenticated user have role as responden
-app.use('/responden', require('./routes/responden'))
+app.use('/responden', ensureAuth, require('./routes/responden'))
 
 // CONNECT TO DB
 connectDB()
