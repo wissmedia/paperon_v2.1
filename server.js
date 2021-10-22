@@ -101,10 +101,14 @@ app.use('/author', [ensureAuth, isAuthor], require('./routes/author'))
 // @note    Authenticated user have role as responden
 app.use('/responden', ensureAuth, require('./routes/responden'))
 
-// CONNECT TO DB
-connectDB()
-
-// SERVER START
-app.listen(PORT, HOST, () => {
-  console.log(`Server Running on: http://${HOST}:${PORT}`)
-})
+// TRY CONNECT TO DB THEN START SERVER
+try {
+  connectDB().then(() => {
+    app.listen(PORT, HOST, () => {
+      console.log(`Server Running on: http://${HOST}/${PORT}`)
+    })
+  })
+} catch (error) {
+  console.error(error)
+  process.exit(1)
+}
