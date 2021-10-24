@@ -10,7 +10,7 @@ module.exports = {
     if (req.user.role == 'author') {
       return next()
     } else {
-      res.redirect('/responden')
+      res.redirect('/respondent')
     }
   }
 }
