@@ -4,12 +4,15 @@
 <%- include('../partials/head.ejs') %>
 
   <body>
-    <h1>
-      <%= navTitle %>
-    </h1>
-<a href="/auth/google">Login</a>
-    <!-- SCRIPT PARTIALS -->
-    <%- include('../partials/scripts.ejs') %>
+    <!-- NAV PARTIALS -->
+    <%- include('../partials/nav.ejs') %>
+
+    <a href="/auth/google">Login</a>
+
+      <!-- MODAL MENU -->
+      <%- include('../partials/modal-auth.ejs') %>
+        <!-- SCRIPT PARTIALS -->
+        <%- include('../partials/scripts.ejs') %>
   </body>
 
 </html>

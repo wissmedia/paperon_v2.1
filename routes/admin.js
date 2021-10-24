@@ -6,7 +6,6 @@ const link = '/admin'
 router.get('/', (req, res) => {
   let navMenus = [
     { link: '/respondent', icon: 'fas fa-chevron-circle-left', label: 'Respondent' },
-    { link: '/', icon: 'fas fa-chevron-circle-down', label: 'Paperon' },
     { link: '/author', icon: 'fas fa-chevron-circle-right', label: 'Author' },
   ]
   let UserMenu = [
