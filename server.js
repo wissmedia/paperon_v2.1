@@ -96,10 +96,10 @@ app.use('/admin', [ensureAuth, isAdmin], require('./routes/admin'))
 // @note    Check if user is authenticate and have role as author
 app.use('/author', [ensureAuth, isAuthor], require('./routes/author'))
 
-// @desc    App Responden Route
-// @route   GET /responden
-// @note    Authenticated user have role as responden
-app.use('/responden', ensureAuth, require('./routes/responden'))
+// @desc    App Respondent Route
+// @route   GET /respondent
+// @note    Authenticated user have role as respondent
+app.use('/respondent', ensureAuth, require('./routes/respondent'))
 
 // TRY CONNECT TO DB THEN START SERVER
 try {
