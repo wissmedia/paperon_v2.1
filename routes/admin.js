@@ -1,27 +1,31 @@
 const router = require('express').Router()
+const link = '/admin'
 
 // @desc    Admin Index Page
 // @route   GET /admin
 router.get('/', (req, res) => {
   let navMenus = [
-    { link: '#', icon: 'fas fa-warehouse', label: 'Pertanyaan' },
-    { link: '#', icon: 'fas fa-newspaper', label: 'Kuesioner' },
-    { link: '#', icon: 'fas fa-poll', label: 'Hasil' },
-    { link: '#', icon: 'fas fa-cogs', label: 'Pengaturan' },
-    { link: '/', icon: 'fas fa-chevron-circle-left', label: 'Kembali' },
+    { link: '/respondent', icon: 'fas fa-chevron-circle-left', label: 'Respondent' },
+    { link: '/', icon: 'fas fa-chevron-circle-down', label: 'Paperon' },
+    { link: '/author', icon: 'fas fa-chevron-circle-right', label: 'Author' },
   ]
-  let menus = [
-    { link: '#', icon: 'fas fa-comments', label: 'Publik' },
-    { link: '#', icon: 'fas fa-eye', label: 'Viewer' },
-    { link: '#', icon: 'fas fa-bullseye', label: 'Noschema' },
-    { link: '#', icon: 'fas fa-bullseye', label: 'Noschema' },
-    { link: '#', icon: 'fas fa-bullseye', label: 'Noschema' },
-    { link: '#', icon: 'fas fa-bullseye', label: 'Noschema' },
+  let UserMenu = [
+    { link: `${link}/user-promote`, icon: 'fas fa-user-plus', label: 'Promote to Author' },
+    { link: `${link}/user-demote`, icon: 'fas fa-user-minus', label: 'Demote to Responden' },
+    { link: `${link}/user-block`, icon: 'fas fa-user-slash', label: 'Block User' },
+    { link: `${link}/user-delete`, icon: 'fas fa-user-times', label: 'Delete User' },
+    { link: `${link}/user-edit`, icon: 'fas fa-user-edit', label: 'Edit User' },
+    { link: `${link}/user-setting`, icon: 'fas fa-user-cog', label: 'Add Setting' },
+    { link: '#', icon: 'fas fa-bug', label: 'Need Update Later' },
+  ]
+  let QformMenu = [
+    { link: '#', icon: 'fas fa-bug', label: 'Need Update Later' },
   ]
   res.render('admin/index', { 
     navTitle: 'Admin Panel',
     navMenus,
-    menus
+    UserMenu,
+    QformMenu
   })
 })
 

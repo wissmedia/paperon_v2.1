@@ -8,6 +8,7 @@
     <%- include('../partials/nav.ejs') %>
       <div class="container">
         <div class="row-content">
+          <!-- User Control Menus -->
           <div class="content fadeInKiri">
             <div class="line"></div>
             <div class="bungkus-content">
@@ -15,7 +16,7 @@
             </div>
             <div class="card-container scroll-samping">
               <!-- Menu Item Card -->
-              <% menus.forEach(menu=> { %>
+              <% UserMenu.forEach(menu=> { %>
                 <div class="card <%=(menu.status ? 'pending' : '' ) %>">
                   <a href="<%= menu.link %> ">
                     <h3>
@@ -29,70 +30,19 @@
                   </a>
                 </div>
                 <% }) %>
-                  <div class="card fadeInKiri">
-                    <a href="content/add.html">
-                      <h3>
-                        <i class="fas fa-plus-circle"></i>
-                      </h3>
-                      <div class="card-label">
-                        <p>New quesioner</p>
-                      </div>
-                    </a>
-                  </div>
-
-                  <div class="card fadeInAtas">
-                    <a href="content/quesioner.html">
-                      <h3>
-                        <i class="fas fa-eye"></i>
-                      </h3>
-                      <div class="card-label">
-                        <p>Publish</p>
-                      </div>
-                    </a>
-                  </div>
-
-                  <div class="card fadeInBawah">
-                    <a href="content/result.html">
-                      <h3>
-                        <i class="fas fa-poll"></i>
-                      </h3>
-                      <div class="card-label">
-                        <p>Result</p>
-                      </div>
-                    </a>
-                  </div>
-
-                  <div class="card fadeInKiri">
-                    <a href="content/add.html">
-                      <h3>
-                        <i class="fas fa-plus-circle"></i>
-                      </h3>
-                      <div class="card-label">
-                        <p>New quesioner</p>
-                      </div>
-                    </a>
-                  </div>
-
-                  <div class="card fadeInAtas">
-                    <a href="content/quesioner.html">
-                      <h3>
-                        <i class="fas fa-eye"></i>
-                      </h3>
-                      <div class="card-label">
-                        <p>Publish</p>
-                      </div>
-                    </a>
-                  </div>
             </div>
           </div>
+          <!-- User Control Menus END -->
+
+          <!-- Go To Links -->
           <div class="content fadeInKiri">
             <div class="line"></div>
             <div class="bungkus-content">
-              <h1>Go To Links</h1>
+              <h1>Qform Control</h1>
             </div>
             <div class="card-container scroll-samping">
               <!-- Menu Item Card -->
-              <% menus.forEach(menu=> { %>
+              <% QformMenu.forEach(menu=> { %>
                 <div class="card <%=(menu.status ? 'pending' : '' ) %>">
                   <a href="<%= menu.link %> ">
                     <h3>
@@ -106,62 +56,10 @@
                   </a>
                 </div>
                 <% }) %>
-                  <div class="card fadeInKiri">
-                    <a href="content/add.html">
-                      <h3>
-                        <i class="fas fa-plus-circle"></i>
-                      </h3>
-                      <div class="card-label">
-                        <p>New quesioner</p>
-                      </div>
-                    </a>
-                  </div>
-
-                  <div class="card fadeInAtas">
-                    <a href="content/quesioner.html">
-                      <h3>
-                        <i class="fas fa-eye"></i>
-                      </h3>
-                      <div class="card-label">
-                        <p>Publish</p>
-                      </div>
-                    </a>
-                  </div>
-
-                  <div class="card fadeInBawah">
-                    <a href="content/result.html">
-                      <h3>
-                        <i class="fas fa-poll"></i>
-                      </h3>
-                      <div class="card-label">
-                        <p>Result</p>
-                      </div>
-                    </a>
-                  </div>
-
-                  <div class="card fadeInKiri">
-                    <a href="content/add.html">
-                      <h3>
-                        <i class="fas fa-plus-circle"></i>
-                      </h3>
-                      <div class="card-label">
-                        <p>New quesioner</p>
-                      </div>
-                    </a>
-                  </div>
-
-                  <div class="card fadeInAtas">
-                    <a href="content/quesioner.html">
-                      <h3>
-                        <i class="fas fa-eye"></i>
-                      </h3>
-                      <div class="card-label">
-                        <p>Publish</p>
-                      </div>
-                    </a>
-                  </div>
             </div>
           </div>
+          <!-- Go To Links END -->
+
         </div>
       </div>
       <!-- MODAL MENU -->
