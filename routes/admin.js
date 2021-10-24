@@ -29,4 +29,12 @@ router.get('/', (req, res) => {
   })
 })
 
+// @desc    Promote to Author Page
+// @route   GET /admin/user-promote
+router.get('/user-promote', (req,res) => {
+  res.render('admin/user-promote', {
+    navTitle: 'Promote to Author'
+  })
+})
+
 module.exports = router
