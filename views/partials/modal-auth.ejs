@@ -26,6 +26,16 @@
             </span>
           </div>
         </a>
+        <% if (user.email == process.env.ADMIN_EMAIL) { %>
+          <a href="/admin">
+            <div class="list-menu-container" id="admin">
+              <i class="fas fa-user-shield"></i>
+              <span class="label-list">
+                Admin Panel
+              </span>
+            </div>
+          </a>
+          <% } %>
       </div>
       <% }else{ %>
         <div class="form fadeIn">
