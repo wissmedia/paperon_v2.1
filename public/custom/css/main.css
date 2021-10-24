@@ -44,6 +44,13 @@ a{
 .dataTables_wrapper select{
     color: white !important;
 }
+.dataTables_wrapper select option{
+    background-color: var(--darkaksen) !important;
+}
+table.dataTables td{
+    box-sizing: content-box;
+    text-align: center !important;
+}
 /* END Data Tables Custom */
 
 /* Responsive slide kanan kiri */
