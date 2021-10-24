@@ -2,15 +2,69 @@
 <html lang="en">
 <!-- HEAD PARTIALS -->
 <%- include('../partials/head.ejs') %>
+  <link rel="stylesheet" href="/datatables/datatables.min.css">
 
   <body>
     <!-- NAV PARTIALS -->
     <%- include('../partials/nav.ejs') %>
-
+      <div class="container">
+        <div class="row-content">
+          <form action="/admin/user-promote" method="POST">
+            <input type="hidden" name="_method" value="PATCH">
+            <div class="data-content fadeInAtas">
+              <% if (users.length>0) { %>
+                <div class="table-responsive">
+                  <table id="dataTable" class="data-table">
+                    <thead>
+                      <tr>
+                        <th>Select</th>
+                        <th>Email</th>
+                        <th>Nama</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <% users.forEach(user=> { %>
+                        <tr>
+                          <td>
+                            <input type="checkbox" name="id" value="<%= user._id %>">
+                          </td>
+                          <td>
+                            <%= user.email %>
+                          </td>
+                          <td>
+                            <%= user.displayName %>
+                          </td>
+                        </tr>
+                        <% }) %>
+                    </tbody>
+                  </table>
+                  <input type="checkbox" name="id" value='' hidden checked>
+                </div>
+                <br>
+                <center>
+                  <button type="submit" class="tombol-md tmb-utama bunder fadeIn">Promote</button>
+                </center>
+                <% } else { %>
+                  <div class="info-content fadeInAtas">
+                    <p>Data tidak ditemukan</p>
+                  </div>
+                  <% } %>
+            </div>
+          </form>
+        </div>
+      </div>
       <!-- MODAL MENU -->
       <%- include('../partials/modal-auth.ejs') %>
         <!-- SCRIPT PARTIALS -->
         <%- include('../partials/scripts.ejs') %>
+          <script src="/datatables/datatables.min.js"></script>
+          <script>
+            $(document).ready(function () {
+              $('#dataTable').DataTable({
+                lengthMenu: [[5, 10, 20, -1], [5, 10, 20, "All"]],
+              });
+            });
+          </script>
   </body>
 
 </html>
