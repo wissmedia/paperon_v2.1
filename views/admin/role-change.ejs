@@ -19,6 +19,7 @@
                       <tr>
                         <th>Select</th>
                         <th>Email</th>
+                        <th>Image</th>
                         <th>Nama</th>
                       </tr>
                     </thead>
@@ -31,6 +32,7 @@
                           <td>
                             <%= user.email %>
                           </td>
+                          <td><img src="<%= user.image %>" alt="user image" width="20" height="20"></td>
                           <td>
                             <%= user.displayName %>
                           </td>
