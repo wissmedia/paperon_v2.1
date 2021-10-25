@@ -50,10 +50,10 @@
                           <%= user.role %>
                         </td>
                         <td>
-                          <%= user.createdAt %>
+                          <%= dateFormat.simpleDate(user.createdAt) %>
                         </td>
                         <td>
-                          <%= user.updatedAt %>
+                          <%= dateFormat.simpleDate(user.updatedAt) %>
                         </td>
                       </tr>
                       <% }) %>
