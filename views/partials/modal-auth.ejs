@@ -26,16 +26,34 @@
             </span>
           </div>
         </a>
-        <% if (user.email == process.env.ADMIN_EMAIL) { %>
-          <a href="/admin">
-            <div class="list-menu-container" id="admin">
-              <i class="fas fa-user-shield"></i>
+        <% if (user.role=='author' ) { %>
+          <a href="/author">
+            <div class="list-menu-container" id="author">
+              <i class="fas fa-user-tie"></i>
               <span class="label-list">
-                Admin Panel
+                Author Panel
+              </span>
+            </div>
+          </a>
+          <a href="/respondent">
+            <div class="list-menu-container" id="author">
+              <i class="fas fa-pencil-alt"></i>
+              <span class="label-list">
+                Respondent Panel
               </span>
             </div>
           </a>
           <% } %>
+            <% if (user.email==process.env.ADMIN_EMAIL) { %>
+              <a href="/admin">
+                <div class="list-menu-container" id="admin">
+                  <i class="fas fa-user-shield"></i>
+                  <span class="label-list">
+                    Admin Panel
+                  </span>
+                </div>
+              </a>
+              <% } %>
       </div>
       <% }else{ %>
         <div class="form fadeIn">
