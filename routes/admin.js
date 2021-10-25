@@ -129,16 +129,16 @@ router.get('/user-demote', async (req, res) => {
 
 // @desc    Process Promote to Author Page
 // @route   PATCH /admin/user-promote
-router.patch('/role-change', async ({ body }, res) => {
-  let ids = body.id
+router.patch('/role-change', async (req, res) => {
+  let ids = req.body.id
   let changeStatus = ''
   /**
    *  change 'changeStatus' based on role from hidden input
    */
-  if (body.role == 'promote') {
+  if (req.body.role == 'promote') {
     changeStatus = 'author'
   }
-  if (body.role == 'demote') {
+  if (req.body.role == 'demote') {
     changeStatus = 'respondent'
   }
   // console.log(changeStatus)
@@ -167,10 +167,10 @@ router.patch('/role-change', async ({ body }, res) => {
     /**
      * Change redirect based on role
      */
-    if (body.role == 'promote') {
+    if (req.body.role == 'promote') {
       res.redirect('/admin/user-promote')
     }
-    if (body.role == 'demote') {
+    if (req.body.role == 'demote') {
       res.redirect('/admin/user-demote')
     }
   } catch (error) {
@@ -233,8 +233,8 @@ router.get('/revoke-api', async (req, res) => {
 
 // @desc    Process Api Access Token Page
 // @route   PATCH /admin/api-token
-router.patch('/api-token', async ({ body }, res) => {
-  let ids = body.id
+router.patch('/api-token', async (req, res) => {
+  let ids = req.body.id
   try {
     // go to /admin if id is blank or invalid
     if (!ids) {
@@ -251,12 +251,12 @@ router.patch('/api-token', async ({ body }, res) => {
      *  Conditionally patch based on grant or revoke
      */
     let updates = []
-    if (body.role == 'grant-api') {
+    if (req.body.role == 'grant-api') {
       ids.forEach(id => {
         let updatePromise = User.updateMany({ _id: id }, { $set: { "apiKey.outbound": genApiKey({ method: 'base32' }) } })
         updates.push(updatePromise)
       })
-    } else if (body.role == 'revoke-api') {
+    } else if (req.body.role == 'revoke-api') {
       ids.forEach(id => {
         let updatePromise = User.updateMany({ _id: id }, { $set: { "apiKey.outbound": null } })
         updates.push(updatePromise)
@@ -268,10 +268,10 @@ router.patch('/api-token', async ({ body }, res) => {
     /**
      * Change redirect based on role
      */
-    if (body.role == 'grant-api') {
+    if (req.body.role == 'grant-api') {
       res.redirect('/admin/grant-api')
     }
-    if (body.role == 'revoke-api') {
+    if (req.body.role == 'revoke-api') {
       res.redirect('/admin/revoke-api')
     }
   } catch (error) {
