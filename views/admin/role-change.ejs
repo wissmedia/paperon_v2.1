@@ -9,7 +9,7 @@
     <%- include('../partials/nav.ejs') %>
       <div class="container">
         <div class="row-content">
-          <form action="/admin/user-promote" method="POST">
+          <form action="/admin/role-change" method="POST">
             <input type="hidden" name="_method" value="PATCH">
             <div class="data-content fadeInAtas">
               <% if (users.length>0) { %>
@@ -38,11 +38,12 @@
                         <% }) %>
                     </tbody>
                   </table>
+                  <input type="text" name="role" value='<%= role %>' hidden>
                   <input type="checkbox" name="id" value='' hidden checked>
                 </div>
                 <br>
                 <center>
-                  <button type="submit" class="tombol-md tmb-utama bunder fadeIn">Promote</button>
+                  <button type="submit" class="tombol-md tmb-utama bunder fadeIn">Change Role</button>
                 </center>
                 <% } else { %>
                   <div class="info-content fadeInAtas">

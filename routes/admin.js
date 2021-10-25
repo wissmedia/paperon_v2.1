@@ -34,9 +34,26 @@ router.get('/', (req, res) => {
 router.get('/user-promote', async (req, res) => {
   try {
     let users = await User.find({ role: 'respondent' }).lean()
-    res.render('admin/user-promote', {
+    res.render('admin/role-change', {
       navTitle: 'Promote to Author',
-      users
+      users,
+      role: 'promote'
+    })
+  } catch (error) {
+    console.error(error)
+    // return res.render('error/index')
+  }
+})
+
+// @desc    Demote to Respondent Page
+// @route   GET /admin/user-demote
+router.get('/user-demote', async (req, res) => {
+  try {
+    let users = await User.find({ role: 'author' }).lean()
+    res.render('admin/role-change', {
+      navTitle: 'Demote to Respondent',
+      users,
+      role: 'demote'
     })
   } catch (error) {
     console.error(error)
@@ -45,9 +62,20 @@ router.get('/user-promote', async (req, res) => {
 })
 
 // @desc    Process Promote to Author Page
-// @route   POST /admin/user-promote
-router.patch('/user-promote', async ({ body }, res) => {
+// @route   PATCH /admin/user-promote
+router.patch('/role-change', async ({ body }, res) => {
   let ids = body.id
+  let changeStatus = ''
+  /**
+   *  change 'changeStatus' based on role from hidden input
+   */
+  if (body.role == 'promote') {
+    changeStatus = 'author'
+  }
+  if (body.role == 'demote') {
+    changeStatus = 'respondent'
+  }
+  // console.log(changeStatus)
   try {
     // go to /admin if id is blank or invalid
     if (!ids) {
@@ -59,24 +87,30 @@ router.patch('/user-promote', async ({ body }, res) => {
     if (ids.constructor === Array) {
       ids = ids.filter(item => item)
     }
-
     /**
      *  Use Promises to handle multiple async update
      */
     let updates = []
     ids.forEach(id => {
-      let updatePromise = User.updateMany({ _id: id }, { $set: { role: 'author' } })
+      let updatePromise = User.updateMany({ _id: id }, { $set: { role: changeStatus } })
       updates.push(updatePromise)
     })
     Promise.all(updates).then(result => {
       console.log(result)
     })
-    res.redirect('/admin/user-promote')
+    /**
+     * Change redirect based on role
+     */
+    if (body.role == 'promote') {
+      res.redirect('/admin/user-promote')
+    }
+    if (body.role == 'demote') {
+      res.redirect('/admin/user-demote')
+    }
   } catch (error) {
     console.error(error)
     // return res.render('error/index')
   }
-
 })
 
 module.exports = router
