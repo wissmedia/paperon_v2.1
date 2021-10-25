@@ -46,6 +46,9 @@ router.get('/', (req, res) => {
 // @desc    User List Page
 // @route   GET /admin/user-list
 router.get('/user-list', async (req, res) => {
+  let navMenus = [
+    { link: '/admin', icon: 'fas fa-chevron-circle-left', label: 'Back' },
+  ]
   try {
     // find all user and set to 'users'
     let users = await User.find({}).lean()
@@ -70,6 +73,7 @@ router.get('/user-list', async (req, res) => {
     console.log(counter)
     res.render('admin/user-list', {
       navTitle: 'Promote to Author',
+      navMenus,
       users,
       counter,
       dateFormat
@@ -83,10 +87,14 @@ router.get('/user-list', async (req, res) => {
 // @desc    Promote to Author Page
 // @route   GET /admin/user-promote
 router.get('/user-promote', async (req, res) => {
+  let navMenus = [
+    { link: '/admin', icon: 'fas fa-chevron-circle-left', label: 'Back' },
+  ]
   try {
     let users = await User.find({ role: 'respondent' }).lean()
     res.render('admin/role-change', {
       navTitle: 'Promote to Author',
+      navMenus,
       users,
       role: 'promote'
     })
@@ -99,10 +107,14 @@ router.get('/user-promote', async (req, res) => {
 // @desc    Demote to Respondent Page
 // @route   GET /admin/user-demote
 router.get('/user-demote', async (req, res) => {
+  let navMenus = [
+    { link: '/admin', icon: 'fas fa-chevron-circle-left', label: 'Back' },
+  ]
   try {
     let users = await User.find({ role: 'author' }).lean()
     res.render('admin/role-change', {
       navTitle: 'Demote to Respondent',
+      navMenus,
       users,
       role: 'demote'
     })

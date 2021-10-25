@@ -56,16 +56,18 @@
       </div>
       <!-- MODAL MENU -->
       <%- include('../partials/modal-auth.ejs') %>
-        <!-- SCRIPT PARTIALS -->
-        <%- include('../partials/scripts.ejs') %>
-          <script src="/datatables/datatables.min.js"></script>
-          <script>
-            $(document).ready(function () {
-              $('#dataTable').DataTable({
-                lengthMenu: [[5, 10, 20, -1], [5, 10, 20, "All"]],
+        <!-- FOOTER PARTIALS -->
+        <%- include('../partials/footer.ejs') %>
+          <!-- SCRIPT PARTIALS -->
+          <%- include('../partials/scripts.ejs') %>
+            <script src="/datatables/datatables.min.js"></script>
+            <script>
+              $(document).ready(function () {
+                $('#dataTable').DataTable({
+                  lengthMenu: [[5, 10, 20, -1], [5, 10, 20, "All"]],
+                });
               });
-            });
-          </script>
+            </script>
   </body>
 
 </html>

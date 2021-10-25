@@ -13,9 +13,12 @@
             <div class="line"></div>
             <div class="bungkus-content">
               <h1>Counted Data</h1>
-              <h3>Total Users : <%= counter.user %></h3>
-              <h3>Total Author : <%= counter.author %></h3>
-              <h3>Total Respondent : <%= counter.respondent %></h3>
+              <h3>Total Users : <%= counter.user %>
+              </h3>
+              <h3>Total Author : <%= counter.author %>
+              </h3>
+              <h3>Total Respondent : <%= counter.respondent %>
+              </h3>
             </div>
           </div>
           <div class="data-content fadeInAtas">
@@ -70,16 +73,18 @@
       </div>
       <!-- MODAL MENU -->
       <%- include('../partials/modal-auth.ejs') %>
-        <!-- SCRIPT PARTIALS -->
-        <%- include('../partials/scripts.ejs') %>
-          <script src="/datatables/datatables.min.js"></script>
-          <script>
-            $(document).ready(function () {
-              $('#dataTable').DataTable({
-                lengthMenu: [[5, 10, 20, -1], [5, 10, 20, "All"]],
+        <!-- FOOTER PARTIALS -->
+        <%- include('../partials/footer.ejs') %>
+          <!-- SCRIPT PARTIALS -->
+          <%- include('../partials/scripts.ejs') %>
+            <script src="/datatables/datatables.min.js"></script>
+            <script>
+              $(document).ready(function () {
+                $('#dataTable').DataTable({
+                  lengthMenu: [[5, 10, 20, -1], [5, 10, 20, "All"]],
+                });
               });
-            });
-          </script>
+            </script>
   </body>
 
 </html>
