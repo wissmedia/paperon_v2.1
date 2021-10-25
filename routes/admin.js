@@ -72,7 +72,7 @@ router.get('/user-list', async (req, res) => {
       })
     console.log(counter)
     res.render('admin/user-list', {
-      navTitle: 'Promote to Author',
+      navTitle: 'Users List',
       navMenus,
       users,
       counter,
