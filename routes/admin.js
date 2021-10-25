@@ -23,11 +23,23 @@ router.get('/', (req, res) => {
   let QformMenu = [
     { link: '#', icon: 'fas fa-bug', label: 'Need Update Later' },
   ]
+  let QbankMenu = [
+    { link: '#', icon: 'fas fa-bug', label: 'Need Update Later' },
+  ]
+  let ResultMenu = [
+    { link: '#', icon: 'fas fa-bug', label: 'Need Update Later' },
+  ]
+  let SystemMenu = [
+    { link: '#', icon: 'fas fa-bug', label: 'Need Update Later' },
+  ]
   res.render('admin/index', {
     navTitle: 'Admin Panel',
     navMenus,
     UserMenu,
-    QformMenu
+    QformMenu,
+    QbankMenu,
+    ResultMenu,
+    SystemMenu
   })
 })
 

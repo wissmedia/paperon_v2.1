@@ -34,11 +34,11 @@
           </div>
           <!-- User Control Menus END -->
 
-          <!-- Go To Links -->
+          <!-- QForm Control -->
           <div class="content fadeInKiri">
             <div class="line"></div>
             <div class="bungkus-content">
-              <h1>Qform Control</h1>
+              <h1>QForm Control</h1>
             </div>
             <div class="card-container scroll-samping">
               <!-- Menu Item Card -->
@@ -58,7 +58,85 @@
                 <% }) %>
             </div>
           </div>
-          <!-- Go To Links END -->
+          <!-- QForm Control END -->
+
+           <!-- QBank Control -->
+           <div class="content fadeInKiri">
+            <div class="line"></div>
+            <div class="bungkus-content">
+              <h1>QBank Control</h1>
+            </div>
+            <div class="card-container scroll-samping">
+              <!-- Menu Item Card -->
+              <% QbankMenu.forEach(menu=> { %>
+                <div class="card <%=(menu.status ? 'pending' : '' ) %>">
+                  <a href="<%= menu.link %> ">
+                    <h3>
+                      <i class="<%= menu.icon %> "></i>
+                    </h3>
+                    <div class="card-label">
+                      <p>
+                        <%= menu.label %>
+                      </p>
+                    </div>
+                  </a>
+                </div>
+                <% }) %>
+            </div>
+          </div>
+          <!-- QBank Control END -->
+
+           <!-- Result Control -->
+           <div class="content fadeInKiri">
+            <div class="line"></div>
+            <div class="bungkus-content">
+              <h1>Result Control</h1>
+            </div>
+            <div class="card-container scroll-samping">
+              <!-- Menu Item Card -->
+              <% ResultMenu.forEach(menu=> { %>
+                <div class="card <%=(menu.status ? 'pending' : '' ) %>">
+                  <a href="<%= menu.link %> ">
+                    <h3>
+                      <i class="<%= menu.icon %> "></i>
+                    </h3>
+                    <div class="card-label">
+                      <p>
+                        <%= menu.label %>
+                      </p>
+                    </div>
+                  </a>
+                </div>
+                <% }) %>
+            </div>
+          </div>
+          <!-- Result Control END -->
+
+          <!-- System Control -->
+          <div class="content fadeInKiri">
+            <div class="line"></div>
+            <div class="bungkus-content">
+              <h1>System Control</h1>
+            </div>
+            <div class="card-container scroll-samping">
+              <!-- Menu Item Card -->
+              <% SystemMenu.forEach(menu=> { %>
+                <div class="card <%=(menu.status ? 'pending' : '' ) %>">
+                  <a href="<%= menu.link %> ">
+                    <h3>
+                      <i class="<%= menu.icon %> "></i>
+                    </h3>
+                    <div class="card-label">
+                      <p>
+                        <%= menu.label %>
+                      </p>
+                    </div>
+                  </a>
+                </div>
+                <% }) %>
+            </div>
+          </div>
+          <!-- System Control END -->
 
         </div>
       </div>
