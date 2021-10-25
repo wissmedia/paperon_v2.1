@@ -1,5 +1,6 @@
 const router = require('express').Router()
 const User = require('../models/user')
+const dateFormat = require('../helper/moment')
 const link = '/admin'
 
 // @desc    Admin Index Page
@@ -58,7 +59,8 @@ router.get('/user-list', async (req, res) => {
     res.render('admin/user-list', {
       navTitle: 'Promote to Author',
       users,
-      counter
+      counter,
+      dateFormat
     })
   } catch (error) {
     console.error(error)
