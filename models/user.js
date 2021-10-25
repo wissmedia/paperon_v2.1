@@ -27,6 +27,16 @@ const UserSchema = new mongoose.Schema({
     type: String,
     default: 'respondent',
     enum: ['respondent', 'author']
+  },
+  apiKey: {
+    inbound: {
+      type: String,
+      default: null
+    },
+    outbound: {
+      type: String,
+      default: null
+    }
   }
 }, { timestamps: true })
 

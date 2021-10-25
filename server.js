@@ -114,6 +114,11 @@ app.use('/author', [ensureAuth, isAuthor], require('./routes/author'))
 // @note    Authenticated user have role as respondent
 app.use('/respondent', ensureAuth, require('./routes/respondent'))
 
+// @desc    API Endpoint Route
+// @route   GET /api/v1
+// @note    Authenticated user have role as respondent
+app.use('/api/v1', require('./routes/api_v1'))
+
 // TRY CONNECT TO DB THEN START SERVER
 try {
   connectDB().then(() => {
