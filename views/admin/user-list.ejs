@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<!-- HEAD PARTIALS -->
+<%- include('../partials/head.ejs') %>
+  <link rel="stylesheet" href="/datatables/datatables.min.css">
+
+  <body>
+    <!-- NAV PARTIALS -->
+    <%- include('../partials/nav.ejs') %>
+      <div class="container">
+        <div class="row-content">
+          <div class="content fadeInAtas">
+            <div class="line"></div>
+            <div class="bungkus-content">
+              <h1>Counted Data</h1>
+              <h3>Total Users : <%= counter.user %></h3>
+              <h3>Total Author : <%= counter.author %></h3>
+              <h3>Total Respondent : <%= counter.respondent %></h3>
+            </div>
+          </div>
+          <div class="data-content fadeInAtas">
+            <% if (users.length>0) { %>
+              <div class="table-responsive">
+                <table id="dataTable" class="data-table">
+                  <thead>
+                    <tr>
+                      <th>No</th>
+                      <th>Email</th>
+                      <th>Image</th>
+                      <th>Nama</th>
+                      <th>Role</th>
+                      <th>Created</th>
+                      <th>Last Updated</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <% users.forEach((user,index)=> { %>
+                      <tr>
+                        <td>
+                          <%= index+1 %>
+                        </td>
+                        <td>
+                          <%= user.email %>
+                        </td>
+                        <td><img src="<%= user.image %>" alt="user image" width="20" height="20"></td>
+                        <td>
+                          <%= user.displayName %>
+                        </td>
+                        <td>
+                          <%= user.role %>
+                        </td>
+                        <td>
+                          <%= user.createdAt %>
+                        </td>
+                        <td>
+                          <%= user.updatedAt %>
+                        </td>
+                      </tr>
+                      <% }) %>
+                  </tbody>
+                </table>
+              </div>
+              <% } else { %>
+                <div class="info-content fadeInAtas">
+                  <p>Data tidak ditemukan</p>
+                </div>
+                <% } %>
+          </div>
+        </div>
+      </div>
+      <!-- MODAL MENU -->
+      <%- include('../partials/modal-auth.ejs') %>
+        <!-- SCRIPT PARTIALS -->
+        <%- include('../partials/scripts.ejs') %>
+          <script src="/datatables/datatables.min.js"></script>
+          <script>
+            $(document).ready(function () {
+              $('#dataTable').DataTable({
+                lengthMenu: [[5, 10, 20, -1], [5, 10, 20, "All"]],
+              });
+            });
+          </script>
+  </body>
+
+</html>

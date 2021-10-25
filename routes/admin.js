@@ -10,12 +10,13 @@ router.get('/', (req, res) => {
     { link: '/author', icon: 'fas fa-chevron-circle-right', label: 'Author' },
   ]
   let UserMenu = [
+    { link: `${link}/user-list`, icon: 'fas fa-users', label: 'User Lists' },
     { link: `${link}/user-promote`, icon: 'fas fa-user-plus', label: 'Promote to Author' },
     { link: `${link}/user-demote`, icon: 'fas fa-user-minus', label: 'Demote to Responden' },
-    { link: `${link}/user-block`, icon: 'fas fa-user-slash', label: 'Block User' },
-    { link: `${link}/user-delete`, icon: 'fas fa-user-times', label: 'Delete User' },
-    { link: `${link}/user-edit`, icon: 'fas fa-user-edit', label: 'Edit User' },
-    { link: `${link}/user-setting`, icon: 'fas fa-user-cog', label: 'Add Setting' },
+    { link: `${link}/user-block`, icon: 'fas fa-user-slash', label: 'Block User', status: 'pending' },
+    { link: `${link}/user-delete`, icon: 'fas fa-user-times', label: 'Delete User', status: 'pending' },
+    { link: `${link}/user-edit`, icon: 'fas fa-user-edit', label: 'Edit User', status: 'pending' },
+    { link: `${link}/user-setting`, icon: 'fas fa-user-cog', label: 'Add Setting', status: 'pending' },
     { link: '#', icon: 'fas fa-bug', label: 'Need Update Later' },
   ]
   let QformMenu = [
@@ -27,6 +28,42 @@ router.get('/', (req, res) => {
     UserMenu,
     QformMenu
   })
+})
+
+// @desc    User List Page
+// @route   GET /admin/user-list
+router.get('/user-list', async (req, res) => {
+  try {
+    // find all user and set to 'users'
+    let users = await User.find({}).lean()
+
+    /**
+     * Promises of counter
+     * count user, author and respondent
+     * and set to 'counter'
+     */
+    let promises = []
+    let counter = { user: 0, author: 0, respondent: 0 }
+    let countUser = User.countDocuments({})
+    let countAuthor = User.countDocuments({ role: 'author' })
+    let countRespondent = User.countDocuments({ role: 'respondent' })
+    promises.push(countUser, countAuthor, countRespondent)
+    await Promise.all(promises)
+      .then(result => {
+        counter.user = result[0]
+        counter.author = result[1]
+        counter.respondent = result[2]
+      })
+    console.log(counter)
+    res.render('admin/user-list', {
+      navTitle: 'Promote to Author',
+      users,
+      counter
+    })
+  } catch (error) {
+    console.error(error)
+    // return res.render('error/index')
+  }
 })
 
 // @desc    Promote to Author Page
