@@ -16,7 +16,6 @@ module.exports = function (passport) {
         lastName: profile.name.familyName,
         image: profile.photos[0].value,
         email: profile.emails[0].value,
-        "apiKey.inbound": genApiKey({ method: 'string', length: 8 })
       }
 
       try {

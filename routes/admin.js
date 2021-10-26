@@ -131,6 +131,8 @@ router.get('/user-demote', async (req, res) => {
 // @route   PATCH /admin/user-promote
 router.patch('/role-change', async (req, res) => {
   let ids = req.body.id
+  // console.log(req.headers)
+  // console.log(req.user)
   let changeStatus = ''
   /**
    *  change 'changeStatus' based on role from hidden input
