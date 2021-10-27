@@ -33,6 +33,7 @@ router.get('/', (req, res) => {
   let SystemMenu = [
     { link: `${link}/grant-api`, icon: 'fas fa-eye', label: 'Grant API Access' },
     { link: `${link}/revoke-api`, icon: 'fas fa-eye-slash', label: 'Revoke API Access' },
+    { link: `${link}/endpoint`, icon: 'fas fa-bullseye', label: 'API Endpoint' },
     { link: '#', icon: 'fas fa-bug', label: 'Need Update Later' },
   ]
   res.render('admin/index', {
@@ -280,6 +281,20 @@ router.patch('/api-token', async (req, res) => {
     console.error(error)
     // return res.render('error/index')
   }
+})
+
+// @desc    API Endpoint Page
+// @route   GET /admin/endpoint
+router.get('/endpoint', async (req, res) => {
+  let navMenus = [
+    { link: '/admin', icon: 'fas fa-chevron-circle-left', label: 'Back' },
+  ]
+
+  res.render('admin/endpoint', {
+    navTitle: 'API Endpoint List',
+    navMenus,
+  })
+
 })
 
 module.exports = router
