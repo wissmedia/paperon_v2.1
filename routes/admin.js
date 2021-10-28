@@ -6,7 +6,7 @@ const link = '/admin'
 // @desc    Admin Index Page
 // @route   GET /admin
 router.get('/', (req, res) => {
-  let navMenus = [
+  let navMenu = [
     { link: '/respondent', icon: 'fas fa-chevron-circle-left', label: 'Respondent' },
     { link: '/author', icon: 'fas fa-chevron-circle-right', label: 'Author' },
   ]
@@ -34,7 +34,7 @@ router.get('/', (req, res) => {
   ]
   res.render('admin/index', {
     navTitle: 'Admin Panel',
-    navMenus,
+    navMenu,
     UserMenu,
     QformMenu,
     QbankMenu,

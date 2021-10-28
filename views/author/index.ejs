@@ -6,11 +6,67 @@
   <body>
     <!-- NAV PARTIALS -->
     <%- include('../partials/nav.ejs') %>
+      <div class="container">
+        <div class="row-content">
 
+          <!-- Author Control Menus -->
+          <div class="content fadeInKiri">
+            <div class="line"></div>
+            <div class="bungkus-content">
+              <h1>Author Control</h1>
+            </div>
+            <div class="card-container scroll-samping">
+              <!-- Menu Item Card -->
+              <% AuthorMenu.forEach(menu=> { %>
+                <div class="card <%=(menu.status ? 'pending' : '' ) %>">
+                  <a href="<%= menu.link %> ">
+                    <h3>
+                      <i class="<%= menu.icon %> "></i>
+                    </h3>
+                    <div class="card-label">
+                      <p>
+                        <%= menu.label %>
+                      </p>
+                    </div>
+                  </a>
+                </div>
+                <% }) %>
+            </div>
+          </div>
+
+          <!-- Author Setting Control Menus -->
+          <div class="content fadeInKiri">
+            <div class="line"></div>
+            <div class="bungkus-content">
+              <h1>Author Setting Control</h1>
+            </div>
+            <div class="card-container scroll-samping">
+              <!-- Menu Item Card -->
+              <% AuthorSetting.forEach(menu=> { %>
+                <div class="card <%=(menu.status ? 'pending' : '' ) %>">
+                  <a href="<%= menu.link %> ">
+                    <h3>
+                      <i class="<%= menu.icon %> "></i>
+                    </h3>
+                    <div class="card-label">
+                      <p>
+                        <%= menu.label %>
+                      </p>
+                    </div>
+                  </a>
+                </div>
+                <% }) %>
+            </div>
+          </div>
+
+        </div>
+      </div>
       <!-- MODAL MENU -->
       <%- include('../partials/modal-auth.ejs') %>
-        <!-- SCRIPT PARTIALS -->
-        <%- include('../partials/scripts.ejs') %>
+        <!-- FOOTER PARTIALS -->
+        <%- include('../partials/footer.ejs') %>
+          <!-- SCRIPT PARTIALS -->
+          <%- include('../partials/scripts.ejs') %>
   </body>
 
 </html>
