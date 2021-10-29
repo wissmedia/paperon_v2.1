@@ -14,6 +14,7 @@ router.get('/', (req, res) => {
   ]
   let AuthorSetting = [
     { link: `${link}/setting`, icon: 'fas fa-cogs', label: 'Setting' },
+    { link: `${link}/get-api`, icon: 'fas fa-eye', label: 'Get API Key' },
   ]
   res.render('author/index', {
     navTitle: 'Author Panel',
@@ -24,15 +25,66 @@ router.get('/', (req, res) => {
 })
 
 // @desc    Qbank List Page
-// @route   GET /admin/user-promote
+// @route   GET /author/qbank
 router.get('/qbank', async (req, res) => {
-  let navMenus = [
-    { link: '/', icon: 'fas fa-chevron-circle-left', label: 'Back' },
+  let navMenu = [
+    { link: '/author', icon: 'fas fa-chevron-circle-left', label: 'Back' },
   ]
   try {
-    res.render('admin/role-change', {
-      navTitle: 'Promote to Author',
-      navMenus,
+    res.render('author/qbank', {
+      navTitle: 'Qbank',
+      navMenu,
+    })
+  } catch (error) {
+    console.error(error)
+    // return res.render('error/index')
+  }
+})
+
+// @desc    Qform List Page
+// @route   GET /author/qform
+router.get('/qform', async (req, res) => {
+  let navMenu = [
+    { link: '/author', icon: 'fas fa-chevron-circle-left', label: 'Back' },
+  ]
+  try {
+    res.render('author/qform', {
+      navTitle: 'Qform',
+      navMenu,
+    })
+  } catch (error) {
+    console.error(error)
+    // return res.render('error/index')
+  }
+})
+
+// @desc    Result List Page
+// @route   GET /author/result
+router.get('/result', async (req, res) => {
+  let navMenu = [
+    { link: '/author', icon: 'fas fa-chevron-circle-left', label: 'Back' },
+  ]
+  try {
+    res.render('author/result', {
+      navTitle: 'Result',
+      navMenu,
+    })
+  } catch (error) {
+    console.error(error)
+    // return res.render('error/index')
+  }
+})
+
+// @desc    Setting Page
+// @route   GET /author/setting
+router.get('/setting', async (req, res) => {
+  let navMenu = [
+    { link: '/author', icon: 'fas fa-chevron-circle-left', label: 'Back' },
+  ]
+  try {
+    res.render('author/setting', {
+      navTitle: 'Author Setting',
+      navMenu,
     })
   } catch (error) {
     console.error(error)
