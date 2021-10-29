@@ -27,7 +27,7 @@ const UserSchema = new mongoose.Schema({
     type: String,
     default: 'respondent',
     enum: ['respondent', 'author']
-  }
+  },
 }, { timestamps: true })
 
 const Author = mongoose.model('user', UserSchema)

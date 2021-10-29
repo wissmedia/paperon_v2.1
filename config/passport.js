@@ -1,5 +1,6 @@
 const GoogleStrategy = require('passport-google-oauth20').Strategy
 const User = require('../models/user')
+const genApiKey = require('generate-api-key')
 
 module.exports = function (passport) {
   passport.use(new GoogleStrategy({
@@ -14,7 +15,7 @@ module.exports = function (passport) {
         firstName: profile.name.givenName,
         lastName: profile.name.familyName,
         image: profile.photos[0].value,
-        email: profile.emails[0].value
+        email: profile.emails[0].value,
       }
 
       try {

@@ -12,5 +12,12 @@ module.exports = {
     } else {
       res.redirect('/respondent')
     }
+  },
+  ensureAPIRole: function (req, res, next) {
+    if (req.user.role == 'author') {
+      return next()
+    } else {
+      res.status(400).send({ message: 'Not Allowed' })
+    }
   }
 }
