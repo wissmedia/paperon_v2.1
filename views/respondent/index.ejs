@@ -6,11 +6,51 @@
   <body>
     <!-- NAV PARTIALS -->
     <%- include('../partials/nav.ejs') %>
+      <div class="container">
+        <div class="row-content">
 
+          <!-- X Menus -->
+          <div class="content fadeInKiri">
+            <div class="line"></div>
+            <div class="bungkus-content">
+              <h1>A</h1>
+            </div>
+
+          </div>
+
+          <!-- Menus -->
+          <div class="content fadeInKiri">
+            <div class="line"></div>
+            <div class="bungkus-content">
+              <h1>Menu</h1>
+            </div>
+            <div class="card-container scroll-samping">
+              <!-- Menu Item Card -->
+              <% RespoMenu.forEach(menu=> { %>
+                <div class="card <%=(menu.status ? 'pending' : '' ) %>">
+                  <a href="<%= menu.link %> ">
+                    <h3>
+                      <i class="<%= menu.icon %> "></i>
+                    </h3>
+                    <div class="card-label">
+                      <p>
+                        <%= menu.label %>
+                      </p>
+                    </div>
+                  </a>
+                </div>
+                <% }) %>
+            </div>
+          </div>
+
+        </div>
+      </div>
       <!-- MODAL MENU -->
       <%- include('../partials/modal-auth.ejs') %>
-        <!-- SCRIPT PARTIALS -->
-        <%- include('../partials/scripts.ejs') %>
+        <!-- FOOTER PARTIALS -->
+        <%- include('../partials/footer.ejs') %>
+          <!-- SCRIPT PARTIALS -->
+          <%- include('../partials/scripts.ejs') %>
   </body>
 
 </html>
