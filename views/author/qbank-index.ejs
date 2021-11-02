@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<!-- HEAD PARTIALS -->
+<%- include('../partials/head.ejs') %>
+  <!-- DataTables -->
+  <link rel="stylesheet" href="/datatables/datatables.min.css">
+
+  <body>
+    <!-- NAV PARTIALS -->
+    <%- include('../partials/nav.ejs') %>
+      <div class="container">
+        <div class="row-content">
+
+          <!-- QBANK Menus -->
+          <div class="content fadeInKiri">
+            <div class="line"></div>
+            <div class="bungkus-content">
+              <h1>Menu Bank Pertanyaan</h1>
+              <div class="card-container scroll-samping">
+                <!-- Menu Item Card -->
+                <% QbankMenu.forEach(menu=> { %>
+                  <div class="card <%=(menu.status ? 'pending' : '' ) %>">
+                    <a href="<%= menu.link %> ">
+                      <h3>
+                        <i class="<%= menu.icon %> "></i>
+                      </h3>
+                      <div class="card-label">
+                        <p>
+                          <%= menu.label %>
+                        </p>
+                      </div>
+                    </a>
+                  </div>
+                  <% }) %>
+              </div>
+            </div>
+          </div>
+
+          <div class="data-content fadeInAtas">
+            <!-- responsive table -->
+            <% if (qbanks.length>0) { %>
+
+              <table id="dataTable" class="data-table">
+                <thead>
+                  <tr>
+                    <th>No</th>
+                    <th>Pertanyaan</th>
+                    <th>Tipe</th>
+                    <th>Aksi</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <% qbanks.forEach((item, index)=> { %>
+                    <tr>
+                      <td>
+                        <%= index+1 %>
+                      </td>
+                      <td><a href="<%= link.qbank_detail %>/?id=<%= item._id %>">
+                          <%= item.body %>
+                            <%= (item.useWajib=='on' ? '*' : '' ) %>
+                        </a></td>
+                      <td>
+                        <%= item.tipe %>
+                      </td>
+                      <td>
+                        <form action="/pertanyaan/<%= item._id %>" method="POST" id="delete-form">
+                          <input type="hidden" name="_method" value="DELETE">
+                          <a href="/pertanyaan/edit/<%= item._id %>"><button type="button"
+                              class="tombol tmb-utama bunder"><i class="fas fa-pencil-alt"></i></button></a>
+                          <button type="submit" class="tombol tmb-batal bunder pending"><i
+                              class="fas fa-trash-alt"></i></button>
+                        </form>
+                      </td>
+                    </tr>
+                    <% }) %>
+                </tbody>
+              </table>
+
+              <% } else { %>
+                <div class="info-content fadeInAtas">
+                  <p>Belum ada pertanyaan dibuat</p>
+                  <p>Klik <strong>Tambah</strong> untuk mulai membuat pertanyaan</p>
+                </div>
+                <% } %>
+          </div>
+
+          <!-- QBANK Menus -->
+          <div class="content fadeInKiri">
+            <div class="line"></div>
+            <div class="bungkus-content">
+              <h1>TRY</h1>
+              <div id=qbody></div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+      <!-- MODAL MENU -->
+      <%- include('../partials/modal-auth.ejs') %>
+        <!-- FOOTER PARTIALS -->
+        <%- include('../partials/footer.ejs') %>
+          <!-- SCRIPT PARTIALS -->
+          <%- include('../partials/scripts.ejs') %>
+            <!-- DataTables -->
+            <script src="/datatables/datatables.min.js"></script>
+            <script>
+              $(document).ready(function () {
+                $('#dataTable').DataTable({
+                  lengthMenu: [[5, 10, 20, -1], [5, 10, 20, "All"]],
+                });
+              });
+            </script>
+            
+            <script>
+              fetch('/api/v1/qbank')
+                .then(response => {
+                  return response.json()
+                }).then(res => {
+                  console.log(res)
+                  // let qbody = document.querySelector('#qbody')
+                  // qbody.innerHTML = ""
+                  // let div = document.createElement('div')
+                  // div.innerHTML = `
+                  //   <span>data : ${res.data.message}, user : ${res.data.user}</span>
+                  // `
+                  // qbody.appendChild(div)
+                })
+            </script>
+  </body>
+
+</html>

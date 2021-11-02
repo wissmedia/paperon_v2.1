@@ -2,6 +2,7 @@
 <html lang="en">
 <!-- HEAD PARTIALS -->
 <%- include('../partials/head.ejs') %>
+  <!-- DataTables -->
   <link rel="stylesheet" href="/datatables/datatables.min.css">
 
   <body>
@@ -12,7 +13,7 @@
           <div class="content fadeInAtas">
             <div class="line"></div>
             <div class="bungkus-content">
-              <h1>Counted Data</h1>
+              <h1>User Counter</h1>
               <h3>Total Users : <%= counter.user %>
               </h3>
               <h3>Total Author : <%= counter.author %>
@@ -77,6 +78,7 @@
         <%- include('../partials/footer.ejs') %>
           <!-- SCRIPT PARTIALS -->
           <%- include('../partials/scripts.ejs') %>
+            <!-- DataTables -->
             <script src="/datatables/datatables.min.js"></script>
             <script>
               $(document).ready(function () {
