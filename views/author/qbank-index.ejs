@@ -15,7 +15,7 @@
           <div class="content fadeInKiri">
             <div class="line"></div>
             <div class="bungkus-content">
-              <h1>Menu Bank Pertanyaan</h1>
+              <h1>Question Bank Menu</h1>
               <div class="card-container scroll-samping">
                 <!-- Menu Item Card -->
                 <% QbankMenu.forEach(menu=> { %>
@@ -44,9 +44,9 @@
                 <thead>
                   <tr>
                     <th>No</th>
-                    <th>Pertanyaan</th>
-                    <th>Tipe</th>
-                    <th>Aksi</th>
+                    <th>Question</th>
+                    <th>Type</th>
+                    <th>Action</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -60,7 +60,7 @@
                             <%= (item.useWajib=='on' ? '*' : '' ) %>
                         </a></td>
                       <td>
-                        <%= item.tipe %>
+                        <%= typeChange(item.tipe) %>
                       </td>
                       <td>
                         <form action="/pertanyaan/<%= item._id %>" method="POST" id="delete-form">
@@ -78,19 +78,10 @@
 
               <% } else { %>
                 <div class="info-content fadeInAtas">
-                  <p>Belum ada pertanyaan dibuat</p>
-                  <p>Klik <strong>Tambah</strong> untuk mulai membuat pertanyaan</p>
+                  <p>No questions created yet</p>
+                  <p>Click <strong>Add</strong> to start creating questions</p>
                 </div>
                 <% } %>
-          </div>
-
-          <!-- QBANK Menus -->
-          <div class="content fadeInKiri">
-            <div class="line"></div>
-            <div class="bungkus-content">
-              <h1>TRY</h1>
-              <div id=qbody></div>
-            </div>
           </div>
 
         </div>
@@ -109,22 +100,6 @@
                   lengthMenu: [[5, 10, 20, -1], [5, 10, 20, "All"]],
                 });
               });
-            </script>
-            
-            <script>
-              fetch('/api/v1/qbank')
-                .then(response => {
-                  return response.json()
-                }).then(res => {
-                  console.log(res)
-                  // let qbody = document.querySelector('#qbody')
-                  // qbody.innerHTML = ""
-                  // let div = document.createElement('div')
-                  // div.innerHTML = `
-                  //   <span>data : ${res.data.message}, user : ${res.data.user}</span>
-                  // `
-                  // qbody.appendChild(div)
-                })
             </script>
   </body>
 

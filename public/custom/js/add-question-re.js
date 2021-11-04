@@ -50,7 +50,7 @@ $(document).ready(function () {
 	$("#jawabSingkat").click(function () {
 		let cek = $(".content");
 		if (cek.length > 0) {
-			alert("Selesaikan pertanyaan saat ini sebelum membuat pertanyaan baru");
+			alert("Complete the current question before creating a new question");
 		} else {
 			$(".setup").append(`
 			<div class="addjawabSingkat">
@@ -58,8 +58,8 @@ $(document).ready(function () {
 					<div class="line"></div>
 					<div class="bungkus-content edit">
 						<input type="hidden" name="tipe" value="shortText">
-						<p>Pertanyaan dengan jawaban singkat</p>
-						<input type="text" name="body" id="tanya" class="text tanya" placeholder="Ketik pertanyaan..."
+						<p>Questions with short answers</p>
+						<input type="text" name="body" id="tanya" class="text tanya" placeholder="Question text"
 							required>
 
 						<div class="control-edit">
@@ -70,7 +70,7 @@ $(document).ready(function () {
 						</div>
 					</div>
 				</div>
-				<center><button class="execute tombol-md tmb-utama bunder fadeInBawah">Simpan</button></center>
+				<center><button class="execute tombol-md tmb-utama bunder fadeInBawah">Submit</button></center>
 			</div>
 			`).hide().fadeIn();
 
@@ -87,7 +87,7 @@ $(document).ready(function () {
 	$("#jawabPanjang").click(function () {
 		let cek = $(".content");
 		if (cek.length > 0) {
-			alert("Selesaikan pertanyaan saat ini sebelum membuat pertanyaan baru");
+			alert("Complete the current question before creating a new question");
 		} else {
 			$(".setup").append(`
 			<div class="addjawabPanjang">
@@ -95,8 +95,8 @@ $(document).ready(function () {
 					<div class="line"></div>
 					<div class="bungkus-content edit">
 						<input type="hidden" name="tipe" value="longText">
-						<p>Pertanyaan dengan jawaban panjang</p>
-						<input type="text" name="body" id="tanyapanjang" class="text" placeholder="Ketik pertanyaan.."
+						<p>Questions with long answers</p>
+						<input type="text" name="body" id="tanyapanjang" class="text" placeholder="Question text"
 							required>
 			
 						<div class="control-edit">
@@ -107,7 +107,7 @@ $(document).ready(function () {
 						</div>
 					</div>
 				</div>
-				<center><button class="tombol-md tmb-utama bunder fadeInBawah">Simpan</button></center>
+				<center><button class="tombol-md tmb-utama bunder fadeInBawah">Submit</button></center>
 			</div>
 			`).hide().fadeIn();
 
@@ -124,7 +124,7 @@ $(document).ready(function () {
 	$("#pilihanGanda").click(function () {
 		let cek = $(".content");
 		if (cek.length > 0) {
-			alert("Selesaikan pertanyaan saat ini sebelum membuat pertanyaan baru");
+			alert("Complete the current question before creating a new question");
 		} else {
 			$(".setup").append(`
 			<div class="addpilihanGanda">
@@ -132,18 +132,18 @@ $(document).ready(function () {
 					<div class="line"></div>
 					<div class="bungkus-content edit">
 						<input type="hidden" name="tipe" value="radio">
-						<p>Pertanyaan dengan jawaban pilihan ganda</p>
-						<input type="text" name="body" id="pilihanganda" class="text" placeholder="Ketik Pertanyaan..."
+						<p>Questions with multiple choice answers</p>
+						<input type="text" name="body" id="pilihanganda" class="text" placeholder="Question text"
 							required>
 
 						<div class="edit-group setInput">
 							<input type="radio" name="pilih" id="pilih1" disabled>
-							<input type="text" name="opsiy" id="opsi" class="text" placeholder="Ketik opsi..." required>
+							<input type="text" name="opsiy" id="opsi" class="text" placeholder="Option text" required>
 						</div>
 
 						<div class="edit-group addInput">
 							<input type="radio" name="pilih" id="pilih1" disabled>
-							<input type="text" class="text addOpsiKolom" placeholder="Tambah opsi" readonly>
+							<input type="text" class="text addOpsiKolom" placeholder="Add option" readonly>
 						</div>
 
 						<div class="control-edit">
@@ -155,7 +155,7 @@ $(document).ready(function () {
 						</div>
 					</div>
 				</div>
-				<center><button class="tombol-md tmb-utama bunder fadeInBawah">Simpan</button></center>
+				<center><button class="tombol-md tmb-utama bunder fadeInBawah">Submit</button></center>
 			</div>
 			`).hide().fadeIn();
 
@@ -172,7 +172,7 @@ $(document).ready(function () {
 	$("#kisiPilihanGanda").click(function () {
 		let cek = $(".content");
 		if (cek.length > 0) {
-			alert("Selesaikan pertanyaan saat ini sebelum membuat pertanyaan baru");
+			alert("Complete the current question before creating a new question");
 		} else {
 			$(".setup").append(`
       <div class="addkisipilihanGanda">
@@ -180,13 +180,13 @@ $(document).ready(function () {
 					<div class="line"></div>
 					<div class="bungkus-content edit">
 						<input type="hidden" name="tipe" value="radioGrid">
-						<p>Pertanyaan pilihan ganda bentuk baris dan kolom</p>
-						<input type="text" name="body" id="pilihanganda" class="text" placeholder="Ketik pertanyaan..." required>
+						<p>Multiple choice questions in rows and columns</p>
+						<input type="text" name="body" id="pilihanganda" class="text" placeholder="Question text" required>
 						<div class="baris">
-							<label for="">Baris</label>
+							<label for="">Row</label>
 							<div class="edit-group setInput">
 								<input type="radio" name="pilih" id="pilih1" disabled>
-								<input type="text" name="opsix" id="opsi" class="text" placeholder="Ketik opsi..." required >
+								<input type="text" name="opsix" id="opsi" class="text" placeholder="Option text" required >
 							</div>
 
 							<div class="edit-group addInput">
@@ -195,10 +195,10 @@ $(document).ready(function () {
 							</div>
 						</div>
 						<div class="kolom">
-							<label for="">Kolom</label>
+							<label for="">Column</label>
 							<div class="edit-group setInput">
 								<input type="radio" name="pilih" id="pilih1" disabled>
-								<input type="text" name="opsiy" id="opsi" class="text" placeholder="Ketik opsi..." required >
+								<input type="text" name="opsiy" id="opsi" class="text" placeholder="Option text" required >
 							</div>
 
 							<div class="edit-group addInput">
@@ -217,7 +217,7 @@ $(document).ready(function () {
 						</div>
 					</div>
 				</div>
-				<center><button class="tombol-md tmb-utama bunder fadeInBawah">Simpan</button></center>
+				<center><button class="tombol-md tmb-utama bunder fadeInBawah">Submit</button></center>
 			</div>      
 			`).hide().fadeIn();
 
@@ -234,7 +234,7 @@ $(document).ready(function () {
 	$("#kotakCentang").click(function () {
 		let cek = $(".content");
 		if (cek.length > 0) {
-			alert("Selesaikan pertanyaan saat ini sebelum membuat pertanyaan baru");
+			alert("Complete the current question before creating a new question");
 		} else {
 			$(".setup").append(`
 			<div class="addkotakCentang">
@@ -242,18 +242,18 @@ $(document).ready(function () {
 					<div class="line"></div>
 					<div class="bungkus-content edit">
 						<input type="hidden" name="tipe" value="checkBox">
-						<p>Pertanyaan dengan jawaban kotak centang</p>
+						<p>Questions with checkbox answers</p>
 						<input type="text" name="body" id="pilihanganda" class="text"
-							placeholder="Ketik pertanyaan..." required>
+							placeholder="Question text" required>
 
 						<div class="edit-group setInput">
 							<input type="checkbox" name="pilih" id="pilih1" disabled>
-							<input type="text" name="opsiy" id="opsi" class="text" placeholder="Ketik opsi..." required>
+							<input type="text" name="opsiy" id="opsi" class="text" placeholder="Option text" required>
 						</div>
 
 						<div class="edit-group addInput">
 							<input type="checkbox" name="pilih" id="pilih1" disabled>
-							<input type="text" class="text addOpsiCheckKolom" placeholder="Tambah opsi" readonly>
+							<input type="text" class="text addOpsiCheckKolom" placeholder="Add option" readonly>
 						</div>
 
 						<div class="control-edit">
@@ -265,7 +265,7 @@ $(document).ready(function () {
 
 					</div>
 				</div>
-				<center><button class="tombol-md tmb-utama bunder fadeInBawah">Simpan</button></center>
+				<center><button class="tombol-md tmb-utama bunder fadeInBawah">Submit</button></center>
 			</div>
 			`).hide().fadeIn();
 
@@ -282,7 +282,7 @@ $(document).ready(function () {
 	$("#petakKotakCentang").click(function () {
 		let cek = $(".content");
 		if (cek.length > 0) {
-			alert("Selesaikan pertanyaan saat ini sebelum membuat pertanyaan baru");
+			alert("Complete the current question before creating a new question");
 		} else {
 			$(".setup").append(`
 			<div class="addpetakkotakCentang">
@@ -290,14 +290,14 @@ $(document).ready(function () {
 					<div class="line"></div>
 					<div class="bungkus-content edit">
 						<input type="hidden" name="tipe" value="checkGrid">
-						<p>Pertanyaan pilihan petak kotak centang</p>
+						<p>Checkbox questions in rows and columns</p>
 						<input type="text" name="body" id="pilihanganda" class="text"
-							placeholder="Ketik pertanyaan..." required>
+							placeholder="Question text" required>
 						<div class="baris">
-							<label for="">Baris</label>
+							<label for="">Row</label>
 							<div class="edit-group setInput">
 								<input type="checkbox" name="pilih" id="pilih1" disabled>
-								<input type="text" name="opsix" id="opsi" class="text" placeholder="Ketik opsi..." required >
+								<input type="text" name="opsix" id="opsi" class="text" placeholder="Option text" required >
 							</div>
 
 							<div class="edit-group addInput">
@@ -306,10 +306,10 @@ $(document).ready(function () {
 							</div>
 						</div>
 						<div class="kolom">
-							<label for="">Kolom</label>
+							<label for="">Column</label>
 							<div class="edit-group setInput">
 								<input type="checkbox" name="pilih" id="pilih1" disabled>
-								<input type="text" name="opsiy" id="opsi" class="text" placeholder="Ketik opsi..." required >
+								<input type="text" name="opsiy" id="opsi" class="text" placeholder="Option text" required >
 							</div>
 
 							<div class="edit-group addInput">
@@ -328,7 +328,7 @@ $(document).ready(function () {
 						</div>
 					</div>
 				</div>
-				<center><button class="tombol-md tmb-utama bunder fadeInBawah">Simpan</button></center>
+				<center><button class="tombol-md tmb-utama bunder fadeInBawah">Submit</button></center>
 			</div>
 			`).hide().fadeIn();
 
@@ -345,7 +345,7 @@ $(document).ready(function () {
 	$("#dropDown").click(function () {
 		let cek = $(".content");
 		if (cek.length > 0) {
-			alert("Selesaikan pertanyaan saat ini sebelum membuat pertanyaan baru");
+			alert("Complete the current question before creating a new question");
 		} else {
 			$(".setup").append(`
 			<div class="adddropDown">
@@ -353,18 +353,18 @@ $(document).ready(function () {
 					<div class="line"></div>
 					<div class="bungkus-content edit">
 						<input type="hidden" name="tipe" value="dropDown">
-						<p>Pertanyaan dengan jawaban daftar pilihan</p>
-						<input type="text" name="body" id="pilihdropdown" class="text" placeholder="Ketik pertanyaan..."
+						<p>Questions with choice list answers</p>
+						<input type="text" name="body" id="pilihdropdown" class="text" placeholder="Question text"
 							required>
 
 						<div class="edit-group setInput">
 							<span id="nomor" class="nomor">&#9672;</span>
-							<input type="text" name="opsiy" id="opsi" class="text" placeholder="Ketik opsi..." required>
+							<input type="text" name="opsiy" id="opsi" class="text" placeholder="Option text" required>
 						</div>
 
 						<div class="edit-group addInput">
 							<span id="nomor">&#9672;</span>
-							<input type="text" class="text addOpsiDaftar" placeholder="Tambah opsi" readonly>
+							<input type="text" class="text addOpsiDaftar" placeholder="Add option" readonly>
 						</div>
 
 						<div class="control-edit">
@@ -374,7 +374,7 @@ $(document).ready(function () {
 						</div>
 					</div>
 				</div>
-				<center><button class="tombol-md tmb-utama bunder fadeInBawah">Simpan</button></center>
+				<center><button class="tombol-md tmb-utama bunder fadeInBawah">Submit</button></center>
 			</div>
 			`).hide().fadeIn();
 
@@ -391,7 +391,7 @@ $(document).ready(function () {
 	$("#tanggal").click(function () {
 		let cek = $(".content");
 		if (cek.length > 0) {
-			alert("Selesaikan pertanyaan saat ini sebelum membuat pertanyaan baru");
+			alert("Complete the current question before creating a new question");
 		} else {
 			$(".setup").append(`
 			<div class="addTanggal">
@@ -399,8 +399,8 @@ $(document).ready(function () {
 					<div class="line"></div>
 					<div class="bungkus-content edit">
 						<input type="hidden" name="tipe" value="date">
-						<p>Pertanyaan dengan jawaban tanggal</p>
-						<input type="text" name="body" id="tanya" class="text" placeholder="Ketik pertanyaan..."
+						<p>Question with date answer</p>
+						<input type="text" name="body" id="tanya" class="text" placeholder="Question text"
 							required>
 
 						<div class="control-edit">
@@ -410,7 +410,7 @@ $(document).ready(function () {
 						</div>
 					</div>
 				</div>
-				<center><button class="tombol-md tmb-utama bunder fadeInBawah">Simpan</button></center>
+				<center><button class="tombol-md tmb-utama bunder fadeInBawah">Submit</button></center>
 			</div>
 			`).hide().fadeIn();
 
@@ -427,7 +427,7 @@ $(document).ready(function () {
 	$("#waktu").click(function () {
 		let cek = $(".content");
 		if (cek.length > 0) {
-			alert("Selesaikan pertanyaan saat ini sebelum membuat pertanyaan baru");
+			alert("Complete the current question before creating a new question");
 		} else {
 			$(".setup").append(`
 			<div class="addWaktu">
@@ -435,8 +435,8 @@ $(document).ready(function () {
 					<div class="line"></div>
 					<div class="bungkus-content edit">
 						<input type="hidden" name="tipe" value="time">
-						<p>Pertanyaan dengan jawaban waktu</p>
-						<input type="text" name="body" id="tanya" class="text" placeholder="Ketik pertanyaan..."
+						<p>Question with time answer</p>
+						<input type="text" name="body" id="tanya" class="text" placeholder="Question text"
 							required>
 
 						<div class="control-edit">
@@ -446,7 +446,7 @@ $(document).ready(function () {
 						</div>
 					</div>
 				</div>
-				<center><button class="tombol-md tmb-utama bunder fadeInBawah">Simpan</button></center>
+				<center><button class="tombol-md tmb-utama bunder fadeInBawah">Submit</button></center>
 			</div>
 			`).hide().fadeIn();
 
@@ -463,7 +463,7 @@ $(document).ready(function () {
 	$("#tglwaktu").click(function () {
 		let cek = $(".content");
 		if (cek.length > 0) {
-			alert("Selesaikan pertanyaan saat ini sebelum membuat pertanyaan baru");
+			alert("Complete the current question before creating a new question");
 		} else {
 			$(".setup").append(`
 			<div class="addTglWaktu">
@@ -471,9 +471,9 @@ $(document).ready(function () {
 					<div class="line"></div>
 					<div class="bungkus-content edit">
 						<input type="hidden" name="tipe" value="dateTime">
-						<p>Pertanyaan dengan jawaban tanggal dan waktu</p>
+						<p>Question with date and time answer</p>
 						<input type="text" name="body" id="tanya" class="text"
-							placeholder="Ketik pertanyaan..." required>
+							placeholder="Question text" required>
 
 						<div class="control-edit">
 							<span class="wajib"><input type="checkbox" name="useWajib" class="wajibisi"><label class="wajiblabel">Wajib diisi</label></span>
@@ -482,7 +482,7 @@ $(document).ready(function () {
 						</div>
 					</div>
 				</div>
-				<center><button class="tombol-md tmb-utama bunder fadeInBawah">Simpan</button></center>
+				<center><button class="tombol-md tmb-utama bunder fadeInBawah">Submit</button></center>
 			</div>
       `).hide().fadeIn();
 
@@ -499,7 +499,7 @@ $(document).ready(function () {
 	$("#skalaLinear").click(function () {
 		let cek = $(".content");
 		if (cek.length > 0) {
-			alert("Selesaikan pertanyaan saat ini sebelum membuat pertanyaan baru");
+			alert("Complete the current question before creating a new question");
 		} else {
 			$(".setup").append(`
 			<div class="addskalaLinier">
@@ -507,14 +507,14 @@ $(document).ready(function () {
 					<div class="line"></div>
 					<div class="bungkus-content edit">
 						<input type="hidden" name="tipe" value="linearScale">
-						<p>Pertanyaan dengan jawaban bentuk skala</p>
-						<input type="text" name="body" class="text" placeholder="Ketik pertanyaan..." required>
+						<p>Questions with linear scale answers</p>
+						<input type="text" name="body" class="text" placeholder="Question text" required>
 						<select name="sl" class="dropdown ddA">
 							<option value="0">0</option>
 							<option value="1">1</option>
 						</select>
 
-						<span>sampai</span>
+						<span>to</span>
 
 						<select name="sl" class="dropdown ddB">
 							<option value="2">2</option>
@@ -543,7 +543,7 @@ $(document).ready(function () {
 						</div>
 					</div>
 				</div>
-				<center><button class="tombol-md tmb-utama bunder fadeInBawah">Simpan</button></center>
+				<center><button class="tombol-md tmb-utama bunder fadeInBawah">Submit</button></center>
 			</div>
 			`).hide().fadeIn();
 
@@ -704,7 +704,7 @@ $(document).ready(function () {
 		$(this).parents(".addInput").before(`
             <div class="edit-group setInput">
                 <input type="radio" name="pilih" id="pilih1" disabled>
-                <input type="text" name="opsix" id="opsi" class="text" placeholder="Ketik opsi..." required>
+                <input type="text" name="opsix" id="opsi" class="text" placeholder="Option text" required>
                 <a class="del btn-del"><i class="fas fa-times"></i></a>
             </div>
         `);
@@ -715,7 +715,7 @@ $(document).ready(function () {
 		$(this).parents(".addInput").before(`
             <div class="edit-group setInput">
                 <input type="radio" name="pilih" id="pilih1" disabled>
-                <input type="text" name="opsiy" id="opsi" class="text" placeholder="Ketik opsi..." required>
+                <input type="text" name="opsiy" id="opsi" class="text" placeholder="Option text" required>
                 <a class="del btn-del"><i class="fas fa-times"></i></a>
             </div>
         `);
@@ -726,7 +726,7 @@ $(document).ready(function () {
 		$(this).parents(".addInput").before(`
             <div class="edit-group setInput">
                 <input type="checkbox" name="pilih" id="pilih1" disabled>
-                <input type="text" name="opsix" id="opsi" class="text" placeholder="Ketik opsi..." required>
+                <input type="text" name="opsix" id="opsi" class="text" placeholder="Option text" required>
                 <a class="del btn-del"><i class="fas fa-times"></i></a>
             </div>
         `);
@@ -737,7 +737,7 @@ $(document).ready(function () {
 		$(this).parents(".addInput").before(`
             <div class="edit-group setInput">
                 <input type="checkbox" name="pilih" id="pilih1" disabled>
-                <input type="text" name="opsiy" id="opsi" class="text" placeholder="Ketik opsi..." required>
+                <input type="text" name="opsiy" id="opsi" class="text" placeholder="Option text" required>
                 <a class="del btn-del"><i class="fas fa-times"></i></a>
             </div>
         `);
@@ -748,7 +748,7 @@ $(document).ready(function () {
 		$(this).parents(".addInput").before(`
             <div class="edit-group setInput">
                 <span id="nomor" class="nomor">&#9672;</span>
-                <input type="text" name="opsiy" id="opsi" class="text" placeholder="Ketik opsi..." required>
+                <input type="text" name="opsiy" id="opsi" class="text" placeholder="Option text" required>
                 <a class="del btn-del"><i class="fas fa-times"></i></a>
             </div>
         `);
@@ -776,7 +776,7 @@ $(document).ready(function(){
 			let cek = $("input:text").val();
 			let space = cek.slice(0,1);
 			if (space === " ") {
-					alert(`Input tidak boleh kosong!`);
+					alert(`No blank space allowed!`);
 			}
 	});
 });

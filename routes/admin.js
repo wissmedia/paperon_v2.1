@@ -1,6 +1,6 @@
 const router = require('express').Router()
 const User = require('../models/user')
-const dateFormat = require('../helper/moment')
+const { simpleDate } = require('../helper/dateFormat')
 const genApiKey = require('generate-api-key')
 const link = '/admin'
 
@@ -25,15 +25,16 @@ router.get('/', (req, res) => {
     { link: '#', icon: 'fas fa-bug', label: 'Need Update Later' },
   ]
   let QbankMenu = [
+    { link: `${link}/qbank-list`, icon: 'fas fa-bug', label: 'Qbank List' },
     { link: '#', icon: 'fas fa-bug', label: 'Need Update Later' },
   ]
   let ResultMenu = [
     { link: '#', icon: 'fas fa-bug', label: 'Need Update Later' },
   ]
   let SystemMenu = [
-    { link: `${link}/grant-api`, icon: 'fas fa-eye', label: 'Grant API Access' },
-    { link: `${link}/revoke-api`, icon: 'fas fa-eye-slash', label: 'Revoke API Access' },
-    { link: `${link}/endpoint`, icon: 'fas fa-bullseye', label: 'API Endpoint' },
+    { link: `${link}/api-grant`, icon: 'fas fa-eye', label: 'Grant API Access', status: 'pending' },
+    { link: `${link}/api-revoke`, icon: 'fas fa-eye-slash', label: 'Revoke API Access', status: 'pending' },
+    { link: `${link}/api-endpoint`, icon: 'fas fa-bullseye', label: 'API Endpoint', status: 'pending' },
     { link: '#', icon: 'fas fa-bug', label: 'Need Update Later' },
   ]
   res.render('admin/index', {
@@ -51,7 +52,7 @@ router.get('/', (req, res) => {
 // @route   GET /admin/user-list
 router.get('/user-list', async (req, res) => {
   let navMenu = [
-    { link: '/admin', icon: 'fas fa-chevron-circle-left', label: 'Back' },
+    { link: `${link}`, icon: 'fas fa-chevron-circle-left', label: 'Back' },
   ]
   try {
     // find all user and set to 'users'
@@ -74,13 +75,12 @@ router.get('/user-list', async (req, res) => {
         counter.author = result[1]
         counter.respondent = result[2]
       })
-    console.log(counter)
     res.render('admin/user-list', {
       navTitle: 'Users List',
       navMenu,
       users,
       counter,
-      dateFormat
+      simpleDate,
     })
   } catch (error) {
     console.error(error)
@@ -92,7 +92,7 @@ router.get('/user-list', async (req, res) => {
 // @route   GET /admin/user-promote
 router.get('/user-promote', async (req, res) => {
   let navMenu = [
-    { link: '/admin', icon: 'fas fa-chevron-circle-left', label: 'Back' },
+    { link: `${link}`, icon: 'fas fa-chevron-circle-left', label: 'Back' },
   ]
   try {
     let users = await User.find({ role: 'respondent' }).lean()
@@ -112,7 +112,7 @@ router.get('/user-promote', async (req, res) => {
 // @route   GET /admin/user-demote
 router.get('/user-demote', async (req, res) => {
   let navMenu = [
-    { link: '/admin', icon: 'fas fa-chevron-circle-left', label: 'Back' },
+    { link: `${link}`, icon: 'fas fa-chevron-circle-left', label: 'Back' },
   ]
   try {
     let users = await User.find({ role: 'author' }).lean()
@@ -132,8 +132,6 @@ router.get('/user-demote', async (req, res) => {
 // @route   PATCH /admin/user-promote
 router.patch('/role-change', async (req, res) => {
   let ids = req.body.id
-  // console.log(req.headers)
-  // console.log(req.user)
   let changeStatus = ''
   /**
    *  change 'changeStatus' based on role from hidden input
@@ -144,7 +142,7 @@ router.patch('/role-change', async (req, res) => {
   if (req.body.role == 'demote') {
     changeStatus = 'respondent'
   }
-  // console.log(changeStatus)
+
   try {
     // go to /admin if id is blank or invalid
     if (!ids) {
@@ -183,10 +181,10 @@ router.patch('/role-change', async (req, res) => {
 })
 
 // @desc    Grand API Access Page
-// @route   GET /admin/grant-api
-router.get('/grant-api', async (req, res) => {
+// @route   GET /admin/api-grant
+router.get('/api-grant', async (req, res) => {
   let navMenus = [
-    { link: '/admin', icon: 'fas fa-chevron-circle-left', label: 'Back' },
+    { link: `${link}`, icon: 'fas fa-chevron-circle-left', label: 'Back' },
   ]
   try {
     /**
@@ -201,7 +199,7 @@ router.get('/grant-api', async (req, res) => {
       navTitle: 'Grant API Key',
       navMenus,
       users,
-      role: 'grant-api'
+      role: 'api-grant'
     })
   } catch (error) {
     console.error(error)
@@ -210,10 +208,10 @@ router.get('/grant-api', async (req, res) => {
 })
 
 // @desc    revoke API Access Page
-// @route   GET /admin/revoke-api
-router.get('/revoke-api', async (req, res) => {
+// @route   GET /admin/api-revoke
+router.get('/api-revoke', async (req, res) => {
   let navMenus = [
-    { link: '/admin', icon: 'fas fa-chevron-circle-left', label: 'Back' },
+    { link: `${link}`, icon: 'fas fa-chevron-circle-left', label: 'Back' },
   ]
   try {
     let users = await User.find({
@@ -226,7 +224,7 @@ router.get('/revoke-api', async (req, res) => {
       navTitle: 'Revoke API Key',
       navMenus,
       users,
-      role: 'revoke-api'
+      role: 'api-revoke'
     })
   } catch (error) {
     console.error(error)
@@ -254,12 +252,12 @@ router.patch('/api-token', async (req, res) => {
      *  Conditionally patch based on grant or revoke
      */
     let updates = []
-    if (req.body.role == 'grant-api') {
+    if (req.body.role == 'api-grant') {
       ids.forEach(id => {
         let updatePromise = User.updateMany({ _id: id }, { $set: { "apiKey.outbound": genApiKey({ method: 'base32' }) } })
         updates.push(updatePromise)
       })
-    } else if (req.body.role == 'revoke-api') {
+    } else if (req.body.role == 'api-revoke') {
       ids.forEach(id => {
         let updatePromise = User.updateMany({ _id: id }, { $set: { "apiKey.outbound": null } })
         updates.push(updatePromise)
@@ -271,11 +269,11 @@ router.patch('/api-token', async (req, res) => {
     /**
      * Change redirect based on role
      */
-    if (req.body.role == 'grant-api') {
-      res.redirect('/admin/grant-api')
+    if (req.body.role == 'api-grant') {
+      res.redirect('/admin/api-grant')
     }
-    if (req.body.role == 'revoke-api') {
-      res.redirect('/admin/revoke-api')
+    if (req.body.role == 'api-revoke') {
+      res.redirect('/admin/api-revoke')
     }
   } catch (error) {
     console.error(error)
@@ -284,10 +282,10 @@ router.patch('/api-token', async (req, res) => {
 })
 
 // @desc    API Endpoint Page
-// @route   GET /admin/endpoint
-router.get('/endpoint', async (req, res) => {
+// @route   GET /admin/api-endpoint
+router.get('/api-endpoint', async (req, res) => {
   let navMenus = [
-    { link: '/admin', icon: 'fas fa-chevron-circle-left', label: 'Back' },
+    { link: `${link}`, icon: 'fas fa-chevron-circle-left', label: 'Back' },
   ]
 
   res.render('admin/endpoint', {

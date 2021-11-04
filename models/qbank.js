@@ -11,7 +11,8 @@ const QBankSchema = new mongoose.Schema({
   },
   body: {
     type: String,
-    required: true
+    required: true,
+    trim: true
   },
   useWajib: {
     type: String,

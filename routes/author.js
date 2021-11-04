@@ -1,10 +1,16 @@
 const router = require('express').Router()
 const QBank = require('../models/qbank')
 const fetch = require('node-fetch')
+const { typeChange } = require('../helper/qbankHelper')
+const { simpleDate } = require('../helper/dateFormat')
+
 const link = {
   root: '/author',
   qbank: '/author/qbank',
-  qbank_detail: '/author/qbank/detail',
+  qbank_add: '/author/qbank-add',
+  qbank_detail: '/author/qbank-detail',
+  qbank_edit: '/author/qbank-edit',
+  qbank_delete: '/author/qbank-delete',
 }
 
 // @desc    Author Index Page
@@ -15,12 +21,12 @@ router.get('/', (req, res) => {
   ]
   let AuthorMenu = [
     { link: `${link.root}/qbank`, icon: 'fas fa-warehouse', label: 'QBank' },
-    { link: `${link.root}/qform`, icon: 'fas fa-newspaper', label: 'QForm' },
-    { link: `${link.root}/result`, icon: 'fas fa-poll', label: 'Result' },
+    { link: `${link.root}/qform`, icon: 'fas fa-newspaper', label: 'QForm', status: 'pending' },
+    { link: `${link.root}/result`, icon: 'fas fa-poll', label: 'Result', status: 'pending' },
   ]
   let AuthorSetting = [
-    { link: `${link.root}/setting`, icon: 'fas fa-cogs', label: 'Pengaturan', status: 'pending' },
-    { link: `${link.root}/get-api`, icon: 'fas fa-eye', label: 'Dapatkan API Key', status: 'pending' },
+    { link: `${link.root}/setting`, icon: 'fas fa-cogs', label: 'Setting', status: 'pending' },
+    { link: `${link.root}/get-api`, icon: 'fas fa-eye', label: 'Get API Key', status: 'pending' },
   ]
   res.render('author/index', {
     navTitle: 'Author Panel',
@@ -38,9 +44,13 @@ router.get('/', (req, res) => {
 router.get('/qbank', async (req, res) => {
   let navMenu = [
     { link: `${link.root}`, icon: 'fas fa-chevron-circle-left', label: 'Back' },
+    { link: `${link.qbank_add}`, icon: 'fas fa-plus-circle', label: 'Add' },
   ]
   let QbankMenu = [
-    { link: `${link.root}/qbank/add`, icon: 'fas fa-plus-circle', label: 'Tambah' },
+    { link: `${link.qbank_add}`, icon: 'fas fa-plus-circle', label: 'Add', status: 'pending' },
+    { link: `${link.qbank_add}`, icon: 'fas fa-plus-circle', label: 'More Detail', status: 'pending' },
+    { link: `${link.qbank_add}`, icon: 'fas fa-plus-circle', label: 'Edit', status: 'pending' },
+    { link: `${link.qbank_add}`, icon: 'fas fa-plus-circle', label: 'Delete', status: 'pending' },
   ]
   try {
     const qbanks = await QBank.find({ user: req.user.id })
@@ -54,7 +64,8 @@ router.get('/qbank', async (req, res) => {
       navMenu,
       QbankMenu,
       qbanks,
-      link
+      link,
+      typeChange
     })
   } catch (error) {
     console.error(error)
@@ -63,15 +74,15 @@ router.get('/qbank', async (req, res) => {
 })
 
 // @desc    Qbank Add Page
-// @route   GET /author/qbank/add
-router.get('/qbank/add', async (req, res) => {
+// @route   GET /author/qbank-add
+router.get('/qbank-add', async (req, res) => {
   let navMenu = [
     { link: `${link.qbank}`, icon: 'fas fa-chevron-circle-left', label: 'Back' },
-    { link: 'javascript:;', icon: 'fas fa-plus', label: 'Pilihan', id: 'add' },
+    { link: 'javascript:;', icon: 'fas fa-plus', label: 'Options', id: 'add' },
   ]
   try {
     res.render('author/qbank-add', {
-      navTitle: 'Add new Qbank',
+      navTitle: 'Create Question',
       navMenu,
     })
   } catch (error) {
@@ -80,9 +91,9 @@ router.get('/qbank/add', async (req, res) => {
   }
 })
 
-// @desc    x
-// @route   GET x
-router.get('/qbank/detail', async (req, res) => {
+// @desc    Qbank Detail Page
+// @route   GET /author/qbank-detail/?id=x
+router.get('/qbank-detail', async (req, res) => {
   let id = req.query.id
   try {
     const qbank = await QBank.find({ _id: id })
@@ -112,8 +123,8 @@ router.get('/qbank/fetch', async (req, res) => {
   // let id = req.query.id
   try {
     fetch('http://pcku.com:2021/api/v1/qbank')
-    .then(res => res.json())
-    .then(json => console.log(json))
+      .then(res => res.json())
+      .then(json => console.log(json))
     // const qbank = await QBank.find({ _id: id })
     //   .sort({ createdAt: 'desc' })
     //   .lean()
@@ -141,6 +152,12 @@ router.post('/qbank/add', async (req, res) => {
   try {
     // get user from req.user and set to body.user
     req.body.user = req.user.id
+
+    // redirect if body text is whitespace (' ')
+    if (req.body.body === ' ') {
+      return res.redirect(`${link.qbank}`)
+    }
+
     // save all data from req.body to db
     const qbank = new QBank(req.body)
     await qbank.save()
