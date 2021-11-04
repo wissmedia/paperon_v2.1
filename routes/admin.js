@@ -1,11 +1,16 @@
 const router = require('express').Router()
 const User = require('../models/user')
+const Qbank = require('../models/qbank')
 const { simpleDate } = require('../helper/dateFormat')
+const { typeChange } = require('../helper/qbankHelper')
 const genApiKey = require('generate-api-key')
 const link = '/admin'
 
-// @desc    Admin Index Page
-// @route   GET /admin
+/**
+ *  @desc    Admin Index Page
+ *  @route   GET /admin
+ *  @tag     #/admin
+ */
 router.get('/', (req, res) => {
   let navMenu = [
     { link: '/respondent', icon: 'fas fa-chevron-circle-left', label: 'Respondent' },
@@ -48,8 +53,11 @@ router.get('/', (req, res) => {
   })
 })
 
-// @desc    User List Page
-// @route   GET /admin/user-list
+/**
+ *  @desc    User List Page
+ *  @route   GET /admin/user-list
+ *  @tag     #user-list
+ */
 router.get('/user-list', async (req, res) => {
   let navMenu = [
     { link: `${link}`, icon: 'fas fa-chevron-circle-left', label: 'Back' },
@@ -148,7 +156,8 @@ router.patch('/role-change', async (req, res) => {
     if (!ids) {
       return res.redirect('/admin')
     }
-    /** remove blank hidden value
+    /** 
+     *  remove blank hidden value
      *  this is because single data is not array
      */
     if (ids.constructor === Array) {
@@ -174,6 +183,34 @@ router.patch('/role-change', async (req, res) => {
     if (req.body.role == 'demote') {
       res.redirect('/admin/user-demote')
     }
+  } catch (error) {
+    console.error(error)
+    // return res.render('error/index')
+  }
+})
+
+/**
+ *  @desc    Qbank List Page
+ *  @route   GET /admin/qbank-list
+ *  @tag     #qbank-list
+ */
+router.get('/qbank-list', async (req, res) => {
+  let navMenu = [
+    { link: `${link}`, icon: 'fas fa-chevron-circle-left', label: 'Back' },
+  ]
+  try {
+    // find all question and set to 'qbanks'
+    let qbanks = await Qbank.find({})
+      .populate('user', ['displayName', 'email', 'image'])
+      .lean()
+    // count all qbank on db
+    let countQbank = await Qbank.countDocuments({})
+    res.json({
+      countQbank,
+      qbanks,
+      typeChange,
+      simpleDate
+    })
   } catch (error) {
     console.error(error)
     // return res.render('error/index')

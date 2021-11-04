@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<!-- HEAD PARTIALS -->
+<%- include('../partials/head.ejs') %>
+
+  <body>
+    <!-- NAV PARTIALS -->
+    <%- include('../partials/nav.ejs') %>
+
+      <!-- CONTENT -->
+      <div class="container">
+        <div class="row-content">
+          <% if (qbank !=null) { %>
+            <div class="content fadeInKiri">
+              <div class="line"></div>
+              <!-- Body -->
+              <div class="bungkus-content edit">
+                <label for="body">Question Text : </label>
+                <input type="text" class="text" id="body" value="<%= qbank.body %>" disabled>
+              </div>
+              <!-- Type -->
+              <div class="bungkus-content edit">
+                <label for="text">Question Type : </label>
+                <input type="text" class="text" id="tipe" value="<%= typeChange(qbank.tipe) %>" disabled>
+              </div>
+              <!-- useWajib -->
+              <% if (qbank.useWajib=='on' ) { %>
+                <div class="bungkus-content edit">
+                  <p><strong>Required Answer</strong></p>
+                </div>
+                <% } %>
+                  <div class="bungkus-content edit">
+                    <!-- Created DateTime -->
+                    <p>
+                      Created : <%= simpleDate(qbank.createdAt) %>
+                    </p>
+                    <!-- Last Update DateTime -->
+                    <p>Last Updated : <%= simpleDate(qbank.updatedAt) %>
+                    </p>
+                  </div>
+            </div>
+            <div class="content fadeInKiri">
+              <div class="line"></div>
+              <div class="bungkus-content edit">
+                <p>* Preview</p>
+                <%- qbankRender(qbank, true) %> 
+              </div>
+            </div>
+            <center class="fadeInBawah">
+              <a href="<%= link.qbank_edit %>/?id=<%= qbank._id %>"><button class="tombol-md tmb-utama bunder"><i
+                    class="fas fa-pencil-alt"></i> Edit</button></a>
+            </center>
+            <% } else { %>
+              <div class="content fadeInAtas">
+                <div class="line"></div>
+                <div class="bungkus-content edit">
+                  <h3>Tidak Ada Data</h3>
+                </div>
+              </div>
+              <% } %>
+
+
+        </div>
+      </div>
+      <!-- END CONTENT -->
+
+      <!-- MODAL QBANK-->
+      <%- include('../partials/modal-qbank.ejs') %>
+        <!-- MODAL MENU -->
+        <%- include('../partials/modal-auth.ejs') %>
+          <!-- FOOTER PARTIALS -->
+          <%- include('../partials/footer.ejs') %>
+            <!-- SCRIPT PARTIALS -->
+            <%- include('../partials/scripts.ejs') %>
+  </body>
+
+</html>

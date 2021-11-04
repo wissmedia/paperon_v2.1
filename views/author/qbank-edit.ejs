@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<!-- HEAD PARTIALS -->
+<%- include('../partials/head.ejs') %>
+
+  <body>
+    <!-- NAV PARTIALS -->
+    <%- include('../partials/nav.ejs') %>
+
+      <!-- CONTENT -->
+      <div class="container">
+        <div class="row-content">
+          <form action="<%= link.qbank_edit %>/?id=<%= qbank._id %>" method="POST">
+            <input type="hidden" name="_method" value="PATCH">
+            <div class="content fadeInKiri">
+              <div class="line"></div>
+              <div class="bungkus-content">
+                <h3 class="judul">*Question type cannot be changed</h3>
+                <%- warnMess(qbank.tipe) %>
+              </div>
+              <div class="bungkus-content edit">
+                <label for="tipe">Question type :</label>
+                <input type="text" id="tipe" class="text" disabled value="<%= typeChange(qbank.tipe) %>">
+              </div>
+              <%- qbankEdit(qbank) %>
+                <div class="bungkus-content edit <%= pendWajib(qbank.tipe) %>">
+                  <div class="control-edit">
+                    <span class="wajib"><input type="checkbox" <%=isWajibCB(qbank.useWajib) %> name="useWajib"
+                      class="wajibisi"><label class="wajiblabel">Required</label></span>
+                  </div>
+                </div>
+            </div>
+            <center class="fadeInBawah">
+              <button type="submit" class="tombol-md tmb-utama bunder">Simpan</button>
+            </center>
+          </form>
+        </div>
+      </div>
+      <!-- END CONTENT -->
+
+      <!-- MODAL QBANK-->
+      <%- include('../partials/modal-qbank.ejs') %>
+        <!-- MODAL MENU -->
+        <%- include('../partials/modal-auth.ejs') %>
+          <!-- FOOTER PARTIALS -->
+          <%- include('../partials/footer.ejs') %>
+            <!-- SCRIPT PARTIALS -->
+            <%- include('../partials/scripts.ejs') %>
+  </body>
+
+</html>

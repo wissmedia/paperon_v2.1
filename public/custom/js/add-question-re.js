@@ -63,8 +63,7 @@ $(document).ready(function () {
 							required>
 
 						<div class="control-edit">
-							<span class="wajib"><input type="checkbox" name="useWajib" class="wajibisi"><label class="wajiblabel">Wajib
-									diisi</label></span>
+							<span class="wajib"><input type="checkbox" name="useWajib" class="wajibisi"><label class="wajiblabel">Required</label></span>
 							<span class="divider">|</span>
 							<button class="remove" type="button"><i class="fas fa-trash"></i></button>
 						</div>
@@ -100,8 +99,7 @@ $(document).ready(function () {
 							required>
 			
 						<div class="control-edit">
-							<span class="wajib"><input type="checkbox" name="useWajib" class="wajibisi"><label class="wajiblabel">Wajib
-									diisi</label></span>
+							<span class="wajib"><input type="checkbox" name="useWajib" class="wajibisi"><label class="wajiblabel">Required</label></span>
 							<span class="divider">|</span>
 							<button class="remove" type="button"><i class="fas fa-trash"></i></button>
 						</div>
@@ -147,9 +145,8 @@ $(document).ready(function () {
 						</div>
 
 						<div class="control-edit">
-							<!-- <span class="wajib"><input type="checkbox" name="useEtc" class="wajibisi"><label class="lainnyalabel">Tambahkan Lainnya</label></span>  -->
-							<span class="wajib"><input type="checkbox" name="useWajib" class="wajibisi"><label class="wajiblabel">Wajib
-									diisi</label></span>
+							<!-- <span class="wajib"><input type="checkbox" name="useEtc" class="wajibisi"><label class="lainnyalabel">Add More</label></span>  -->
+							<span class="wajib"><input type="checkbox" name="useWajib" class="wajibisi"><label class="wajiblabel">Required</label></span>
 							<span class="divider">|</span>
 							<button class="remove" type="button"><i class="fas fa-trash"></i></button>
 						</div>
@@ -191,7 +188,7 @@ $(document).ready(function () {
 
 							<div class="edit-group addInput">
 								<input type="radio" name="pilih" id="pilih1" disabled>
-								<input type="text" class="text addOpsiBaris" placeholder="Tambah baris" readonly>
+								<input type="text" class="text addOpsiBaris" placeholder="Add Row" readonly>
 							</div>
 						</div>
 						<div class="kolom">
@@ -203,14 +200,13 @@ $(document).ready(function () {
 
 							<div class="edit-group addInput">
 								<input type="radio" name="pilih" id="pilih1" disabled>
-								<input type="text" class="text addOpsiKolom" placeholder="Tambah kolom" readonly>
+								<input type="text" class="text addOpsiKolom" placeholder="Add Coloumn" readonly>
 							</div>
 						</div>
 
 						<div class="container-control-edit">
 							<div class="control-edit">
-								<span class="wajib"><input type="checkbox" name="wajib" class="wajibisi"><label class="wajiblabel">Wajib
-										diisi</label></span>
+								<span class="wajib"><input type="checkbox" name="wajib" class="wajibisi"><label class="wajiblabel">Required</label></span>
 								<span class="divider">|</span>
 								<button class="remove" type="button"><i class="fas fa-trash"></i></button>
 							</div>
@@ -257,8 +253,8 @@ $(document).ready(function () {
 						</div>
 
 						<div class="control-edit">
-							<!-- <span class="wajib"><input type="checkbox" name="useEtc" class="wajibisi"><label class="lainnyalabel">Tambahkan Lainnya</label></span>  -->
-							<span class="wajib"><input type="checkbox" disabled name="useWajib" class="wajibisi"><label class="wajiblabel"><s>Wajib diisi</s></label></span>
+							<!-- <span class="wajib"><input type="checkbox" name="useEtc" class="wajibisi"><label class="lainnyalabel">Add More</label></span>  -->
+							<span class="wajib"><input type="checkbox" disabled name="useWajib" class="wajibisi"><label class="wajiblabel"><s>Required</s></label></span>
 							<span class="divider">|</span>
 							<button class="remove" type="button"><i class="fas fa-trash"></i></button>
 						</div>
@@ -302,7 +298,7 @@ $(document).ready(function () {
 
 							<div class="edit-group addInput">
 								<input type="checkbox" name="pilih" id="pilih1" disabled>
-								<input type="text" class="text addOpsiCheckBaris" placeholder="Tambah baris" readonly>
+								<input type="text" class="text addOpsiCheckBaris" placeholder="Add Row" readonly>
 							</div>
 						</div>
 						<div class="kolom">
@@ -314,14 +310,13 @@ $(document).ready(function () {
 
 							<div class="edit-group addInput">
 								<input type="checkbox" name="pilih" id="pilih1" disabled>
-								<input type="text" class="text addOpsiCheckKolom" placeholder="Tambah kolom" readonly>
+								<input type="text" class="text addOpsiCheckKolom" placeholder="Add Column" readonly>
 							</div>
 						</div>
 
 						<div class="container-control-edit">
 							<div class="control-edit">
-								<span class="wajib"><input type="checkbox" disabled name="useWajib" class="wajibisi"><label
-										class="wajiblabel"><s>Wajib diisi</s></label></span>
+								<span class="wajib"><input type="checkbox" disabled name="useWajib" class="wajibisi"><label class="wajiblabel"><s>Required</s></label></span>
 								<span class="divider">|</span>
 								<button class="remove" type="button"><i class="fas fa-trash"></i></button>
 							</div>
@@ -368,7 +363,7 @@ $(document).ready(function () {
 						</div>
 
 						<div class="control-edit">
-							<span class="wajib"><input type="checkbox" name="useWajib" class="wajibisi"><label class="wajiblabel">Wajib diisi</label></span>
+							<span class="wajib"><input type="checkbox" name="useWajib" class="wajibisi"><label class="wajiblabel">Required</label></span>
 							<span class="divider">|</span>
 							<button class="remove" type="button"><i class="fas fa-trash"></i></button>
 						</div>
@@ -404,7 +399,7 @@ $(document).ready(function () {
 							required>
 
 						<div class="control-edit">
-							<span class="wajib"><input type="checkbox" name="useWajib" class="wajibisi"><label class="wajiblabel">Wajib diisi</label></span>
+							<span class="wajib"><input type="checkbox" name="useWajib" class="wajibisi"><label class="wajiblabel">Required</label></span>
 							<span class="divider">|</span>
 							<button class="remove" type="button"><i class="fas fa-trash"></i></button>
 						</div>
@@ -440,7 +435,7 @@ $(document).ready(function () {
 							required>
 
 						<div class="control-edit">
-							<span class="wajib"><input type="checkbox" name="useWajib" class="wajibisi"><label class="wajiblabel">Wajib diisi</label></span>
+							<span class="wajib"><input type="checkbox" name="useWajib" class="wajibisi"><label class="wajiblabel">Required</label></span>
 							<span class="divider">|</span>
 							<button class="remove" type="button"><i class="fas fa-trash"></i></button>
 						</div>
@@ -476,7 +471,7 @@ $(document).ready(function () {
 							placeholder="Question text" required>
 
 						<div class="control-edit">
-							<span class="wajib"><input type="checkbox" name="useWajib" class="wajibisi"><label class="wajiblabel">Wajib diisi</label></span>
+							<span class="wajib"><input type="checkbox" name="useWajib" class="wajibisi"><label class="wajiblabel">Required</label></span>
 							<span class="divider">|</span>
 							<button class="remove" type="button"><i class="fas fa-trash"></i></button>
 						</div>
@@ -537,7 +532,7 @@ $(document).ready(function () {
 						</div>
 
 						<div class="control-edit">
-							<span class="wajib"><input type="checkbox" name="useWajib" class="wajibisi"><label class="wajiblabel">Wajib diisi</label></span>
+							<span class="wajib"><input type="checkbox" name="useWajib" class="wajibisi"><label class="wajiblabel">Required</label></span>
 							<span class="divider">|</span>
 							<button class="remove" type="button"><i class="fas fa-trash"></i></button>
 						</div>

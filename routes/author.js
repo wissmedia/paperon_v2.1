@@ -1,7 +1,7 @@
 const router = require('express').Router()
 const QBank = require('../models/qbank')
 const fetch = require('node-fetch')
-const { typeChange } = require('../helper/qbankHelper')
+const { typeChange, qbankRender, qbankEdit, warnMess, isWajibCB, pendWajib } = require('../helper/qbankHelper')
 const { simpleDate } = require('../helper/dateFormat')
 
 const link = {
@@ -13,8 +13,10 @@ const link = {
   qbank_delete: '/author/qbank-delete',
 }
 
-// @desc    Author Index Page
-// @route   GET /author
+/**
+ *  @desc    Author Index Page
+ *  @route   GET /author
+ */
 router.get('/', (req, res) => {
   let navMenu = [
     { link: '/respondent', icon: 'fas fa-chevron-circle-left', label: 'Respondent' },
@@ -37,27 +39,24 @@ router.get('/', (req, res) => {
 })
 
 /**
- * QBank Routes
+ *  @desc    Qbank List Page
+ *  @route   GET /author/qbank
  */
-// @desc    Qbank List Page
-// @route   GET /author/qbank
 router.get('/qbank', async (req, res) => {
   let navMenu = [
     { link: `${link.root}`, icon: 'fas fa-chevron-circle-left', label: 'Back' },
     { link: `${link.qbank_add}`, icon: 'fas fa-plus-circle', label: 'Add' },
   ]
   let QbankMenu = [
-    { link: `${link.qbank_add}`, icon: 'fas fa-plus-circle', label: 'Add', status: 'pending' },
+    { link: `${link.qbank_add}`, icon: 'fas fa-plus-circle', label: 'Mass Add', status: 'pending' },
     { link: `${link.qbank_add}`, icon: 'fas fa-plus-circle', label: 'More Detail', status: 'pending' },
-    { link: `${link.qbank_add}`, icon: 'fas fa-plus-circle', label: 'Edit', status: 'pending' },
-    { link: `${link.qbank_add}`, icon: 'fas fa-plus-circle', label: 'Delete', status: 'pending' },
+    { link: `${link.qbank_add}`, icon: 'fas fa-plus-circle', label: 'Mass Edit', status: 'pending' },
+    { link: `${link.qbank_add}`, icon: 'fas fa-plus-circle', label: 'Mass Delete', status: 'pending' },
   ]
   try {
     const qbanks = await QBank.find({ user: req.user.id })
       .sort({ createdAt: 'desc' })
       .lean()
-
-    // console.log(qbanks)
 
     res.render('author/qbank-index', {
       navTitle: 'Qbank Panel',
@@ -73,43 +72,139 @@ router.get('/qbank', async (req, res) => {
   }
 })
 
-// @desc    Qbank Add Page
-// @route   GET /author/qbank-add
-router.get('/qbank-add', async (req, res) => {
+/**
+ *  @desc    Qbank Add Page Chain Method
+ *  @route   GET /author/qbank-add
+ *  @route   POST /author/qbank-add
+ *  @tag     #qbank-add
+ */
+router.route('/qbank-add')
+  .get(async (req, res) => {
+    let navMenu = [
+      { link: `${link.qbank}`, icon: 'fas fa-chevron-circle-left', label: 'Back' },
+      { link: 'javascript:;', icon: 'fas fa-plus', label: 'Options', id: 'add' },
+    ]
+    try {
+      res.render('author/qbank-add', {
+        navTitle: 'Create Question',
+        navMenu,
+        link
+      })
+    } catch (error) {
+      console.error(error)
+      // return res.render('error/index')
+    }
+  })
+  .post(async (req, res) => {
+    try {
+      // get user from req.user and set to body.user
+      req.body.user = req.user.id
+
+      // redirect if body text is whitespace (' ')
+      if (req.body.body === ' ') {
+        return res.redirect(`${link.qbank}`)
+      }
+
+      // save all data from req.body to db
+      const qbank = new QBank(req.body)
+      await qbank.save()
+      res.redirect(`${link.qbank}`)
+    } catch (error) {
+      console.error(error)
+      // return res.render('error/500')
+    }
+  })
+
+/**
+ *  @desc    Qbank Detail Page
+ *  @route   GET /author/qbank-detail/?id=x
+ *  @tag     #qbank-detail
+ *  @query   id = qbank id
+ */
+router.get('/qbank-detail', async (req, res) => {
   let navMenu = [
     { link: `${link.qbank}`, icon: 'fas fa-chevron-circle-left', label: 'Back' },
-    { link: 'javascript:;', icon: 'fas fa-plus', label: 'Options', id: 'add' },
   ]
+  let id = req.query.id
   try {
-    res.render('author/qbank-add', {
-      navTitle: 'Create Question',
+    const qbank = await QBank.findById(id).lean()
+
+    // console.log(qbanks)
+
+    res.render('author/qbank-detail', {
+      navTitle: 'Question Preview',
       navMenu,
+      qbank,
+      link,
+      typeChange,
+      qbankRender,
+      simpleDate
     })
+    // res.json(qbanks)
   } catch (error) {
     console.error(error)
     // return res.render('error/index')
   }
+
 })
 
-// @desc    Qbank Detail Page
-// @route   GET /author/qbank-detail/?id=x
-router.get('/qbank-detail', async (req, res) => {
+/**
+ *  @desc    Qbank Detail Page
+ *  @route   GET /author/qbank-edit/?id=x
+ *  @tag     #qbank-edit
+ *  @query   id = qbank id
+ */
+router.route('/qbank-edit')
+  .get(async (req, res) => {
+    let navMenu = [
+      { link: `${link.qbank}`, icon: 'fas fa-chevron-circle-left', label: 'Back' },
+    ]
+    let id = req.query.id
+    try {
+      const qbank = await QBank.findById(id).lean()
+
+      res.render('author/qbank-edit', {
+        navTitle: 'Edit Question',
+        navMenu,
+        qbank,
+        typeChange,
+        qbankEdit,
+        warnMess,
+        isWajibCB,
+        pendWajib,
+        link
+      })
+      // res.json(qbank)
+    } catch (error) {
+      console.error(error)
+      // return res.render('error/index')
+    }
+  })
+  .patch(async (req, res) => {
+    let id = req.query.id
+    try {
+      // find useWajib on req.body object, if false set useWajib to " "
+      if(!req.body.hasOwnProperty('useWajib')){
+        req.body.useWajib = ''
+      } 
+      await QBank.findByIdAndUpdate(id, req.body)
+      res.redirect(`${link.qbank}`)
+    } catch (error) {
+      console.error(error)
+    }
+  })
+
+/**
+ *  @desc    Qbank Delete
+ *  @route   DELETE /author/qbank-delete/?id=x
+ *  @tag     #qbank-delete
+ *  @query   id = qbank id
+ */
+router.delete('/qbank-delete', async (req, res) => {
   let id = req.query.id
   try {
-    const qbank = await QBank.find({ _id: id })
-      .sort({ createdAt: 'desc' })
-      .lean()
-
-    // console.log(qbanks)
-
-    // res.render('author/qbank-index', {
-    //   navTitle: 'Qbank Panel',
-    //   navMenu,
-    //   QbankMenu,
-    //   qbanks,
-    //   link
-    // })
-    res.json(qbank)
+    await QBank.deleteOne({ _id: id })
+    res.redirect(`${link.qbank}`)
   } catch (error) {
     console.error(error)
     // return res.render('error/index')
@@ -144,28 +239,6 @@ router.get('/qbank/fetch', async (req, res) => {
     // return res.render('error/index')
   }
 
-})
-
-// @desc    Process Qbank Add
-// @route   POST /author/qbank/add
-router.post('/qbank/add', async (req, res) => {
-  try {
-    // get user from req.user and set to body.user
-    req.body.user = req.user.id
-
-    // redirect if body text is whitespace (' ')
-    if (req.body.body === ' ') {
-      return res.redirect(`${link.qbank}`)
-    }
-
-    // save all data from req.body to db
-    const qbank = new QBank(req.body)
-    await qbank.save()
-    res.redirect(`${link.qbank}`)
-  } catch (error) {
-    console.error(error)
-    // return res.render('error/500')
-  }
 })
 
 /**
