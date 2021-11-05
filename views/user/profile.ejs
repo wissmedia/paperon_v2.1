@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<!-- HEAD PARTIALS -->
+<%- include('../partials/head.ejs') %>
+
+  <body>
+    <!-- NAV PARTIALS -->
+    <%- include('../partials/nav.ejs') %>
+      <div class="container">
+        <div class="row-content">
+
+          <!-- Menus -->
+          <div class="content fadeInKiri">
+            <div class="line"></div>
+            <div class="bungkus-content">
+              <h1>User Profile</h1>
+            </div>
+            <pre>
+              <%= JSON.stringify(user, null, 2) %>
+            </pre>
+          </div>
+
+        </div>
+      </div>
+      <!-- MODAL MENU -->
+      <%- include('../partials/modal-auth.ejs') %>
+        <!-- FOOTER PARTIALS -->
+        <%- include('../partials/footer.ejs') %>
+          <!-- SCRIPT PARTIALS -->
+          <%- include('../partials/scripts.ejs') %>
+  </body>
+
+</html>

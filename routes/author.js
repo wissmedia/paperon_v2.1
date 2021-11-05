@@ -3,6 +3,7 @@ const QBank = require('../models/qbank')
 const fetch = require('node-fetch')
 const { typeChange, qbankRender, qbankEdit, warnMess, isWajibCB, pendWajib } = require('../helper/qbankHelper')
 const { simpleDate } = require('../helper/dateFormat')
+const { localsName } = require('ejs')
 
 const link = {
   root: '/author',
@@ -27,6 +28,7 @@ router.get('/', (req, res) => {
     { link: `${link.root}/result`, icon: 'fas fa-poll', label: 'Result', status: 'pending' },
   ]
   let AuthorSetting = [
+    { link: `${link.root}/profile`, icon: 'fas fa-id-badge', label: 'Profile', status: 'pending' },
     { link: `${link.root}/setting`, icon: 'fas fa-cogs', label: 'Setting', status: 'pending' },
     { link: `${link.root}/get-api`, icon: 'fas fa-eye', label: 'Get API Key', status: 'pending' },
   ]
@@ -183,9 +185,9 @@ router.route('/qbank-edit')
     let id = req.query.id
     try {
       // find useWajib on req.body object, if false set useWajib to " "
-      if(!req.body.hasOwnProperty('useWajib')){
+      if (!req.body.hasOwnProperty('useWajib')) {
         req.body.useWajib = ''
-      } 
+      }
       await QBank.findByIdAndUpdate(id, req.body)
       res.redirect(`${link.qbank}`)
     } catch (error) {
@@ -278,6 +280,17 @@ router.get('/result', async (req, res) => {
     console.error(error)
     // return res.render('error/index')
   }
+})
+
+router.get('/profile', (req, res) => {
+  let navMenu = [
+    { link: `${link.root}`, icon: 'fas fa-chevron-circle-left', label: 'Back' },
+  ]
+  res.render('user/profile', {
+    navTitle: 'Your Profile',
+    navMenu,
+    user: res.locals.user
+  })
 })
 
 // @desc    Setting Page

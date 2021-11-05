@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<!-- HEAD PARTIALS -->
+<%- include('../partials/head.ejs') %>
+  <!-- DataTables -->
+  <link rel="stylesheet" href="/datatables/datatables.min.css">
+
+  <body>
+    <!-- NAV PARTIALS -->
+    <%- include('../partials/nav.ejs') %>
+      <div class="container">
+        <div class="row-content">
+
+          <!-- QBANK Menus -->
+          <div class="content fadeInKiri">
+            <div class="line"></div>
+            <div class="bungkus-content">
+              <h1>Question Bank Menu</h1>
+              <h3>Counter : <%= countQbank %>
+              </h3>
+              <div class="card-container scroll-samping">
+                <!-- Menu Item Card -->
+                <% QbankMenu.forEach(menu=> { %>
+                  <div class="card <%=(menu.status ? 'pending' : '' ) %>">
+                    <a href="<%= menu.link %> ">
+                      <h3>
+                        <i class="<%= menu.icon %> "></i>
+                      </h3>
+                      <div class="card-label">
+                        <p>
+                          <%= menu.label %>
+                        </p>
+                      </div>
+                    </a>
+                  </div>
+                  <% }) %>
+              </div>
+            </div>
+          </div>
+
+          <div class="data-content fadeInAtas">
+            <!-- responsive table -->
+            <% if (qbanks.length>0) { %>
+              <div class="table-responsive">
+                <table id="dataTable" class="data-table">
+                  <thead>
+                    <tr>
+                      <th>No</th>
+                      <th>Creator</th>
+                      <th>Image</th>
+                      <th>Question</th>
+                      <th>Type</th>
+                      <th>Required</th>
+                      <th>Created At</th>
+                      <th>Last Update</th>
+                      <th>Action</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <% qbanks.forEach((item, index)=> { %>
+                      <tr>
+                        <td>
+                          <%= index+1 %>
+                        </td>
+                        <td>
+                          <%= item.user.displayName %>
+                        </td>
+                        <td><img src="<%= item.user.image %>" alt="user image" width="20" height="20"></td>
+                        <td><a href="<%= link.qbank_detail %>/?id=<%= item._id %>">
+                            <%= item.body %>
+                              <%= (item.useWajib=='on' ? '*' : '' ) %>
+                          </a></td>
+                        <td>
+                          <%= typeChange(item.tipe) %>
+                        </td>
+                        <td>
+                          <% if (item.useWajib=='on' ) { %>
+                            yes
+                            <% } else { %>
+                              no
+                              <% } %>
+                        </td>
+                        <td>
+                          <%= simpleDate(item.createdAt) %>
+                        </td>
+                        <td>
+                          <%= simpleDate(item.updatedAt) %>
+                        </td>
+                        <td>
+                          <form action="<%= link.qbank_delete %>/?id=<%= item._id %>" method="POST" id="delete-form">
+                            <input type="hidden" name="_method" value="DELETE">
+                            <a href="<%= link.qbank_edit %>/?id=<%= item._id %>"><button type="button"
+                                class="tombol tmb-utama bunder pending"><i class="fas fa-pencil-alt"></i></button></a>
+                            <button type="submit" class="tombol tmb-batal bunder pending"><i
+                                class="fas fa-trash-alt"></i></button>
+                          </form>
+                        </td>
+                      </tr>
+                      <% }) %>
+                  </tbody>
+                </table>
+              </div>
+              <% } else { %>
+                <div class="info-content fadeInAtas">
+                  <p>No questions created yet</p>
+                  <p>Click <strong>Add</strong> to start creating questions</p>
+                </div>
+                <% } %>
+          </div>
+
+        </div>
+      </div>
+      <!-- MODAL MENU -->
+      <%- include('../partials/modal-auth.ejs') %>
+        <!-- FOOTER PARTIALS -->
+        <%- include('../partials/footer.ejs') %>
+          <!-- SCRIPT PARTIALS -->
+          <%- include('../partials/scripts.ejs') %>
+            <!-- DataTables -->
+            <script src="/datatables/datatables.min.js"></script>
+            <script>
+              $(document).ready(function () {
+                $('#dataTable').DataTable({
+                  lengthMenu: [[5, 10, 20, -1], [5, 10, 20, "All"]],
+                });
+              });
+            </script>
+  </body>
+
+</html>

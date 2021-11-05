@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<!-- HEAD PARTIALS -->
+<%- include('../partials/head.ejs') %>
+
+  <body>
+    <!-- NAV PARTIALS -->
+    <%- include('../partials/nav.ejs') %>
+      <div class="container">
+        <div class="row-content">
+
+          <% if (user.role=='author' ) { %>
+            <div class="content fadeInKiri">
+              <div class="line"></div>
+              <div class="bungkus-content">
+                <center>
+                  <h1>you are already an author</h1>
+                <p>click <strong><a href="/author">here</a></strong> to to go to the author panel</p>
+                </center>
+              </div>
+            </div>
+
+            <% } else { %>
+              <!-- Menus -->
+              <div class="content fadeInKiri">
+                <div class="line"></div>
+                <div class="bungkus-content">
+                  <center>
+                    <h1>Self-promote to Author</h1>
+                  </center>
+                </div>
+                <form action="<%= link.respo_promote %>/?id=<%= user.id %>" method="POST">
+                  <input type="hidden" name="_method" value="PATCH">
+                  <center>
+                    <button type="submit" class="tombol-md tmb-utama bunder">Promote</button>
+                  </center>
+              </div>
+              <% } %>
+
+        </div>
+      </div>
+      <!-- MODAL MENU -->
+      <%- include('../partials/modal-auth.ejs') %>
+        <!-- FOOTER PARTIALS -->
+        <%- include('../partials/footer.ejs') %>
+          <!-- SCRIPT PARTIALS -->
+          <%- include('../partials/scripts.ejs') %>
+  </body>
+
+</html>

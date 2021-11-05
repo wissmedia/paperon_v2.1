@@ -30,7 +30,7 @@ router.get('/', (req, res) => {
     { link: '#', icon: 'fas fa-bug', label: 'Need Update Later' },
   ]
   let QbankMenu = [
-    { link: `${link}/qbank-list`, icon: 'fas fa-bug', label: 'Qbank List' },
+    { link: `${link}/qbank-list`, icon: 'fas fa-money-check', label: 'Qbank List' },
     { link: '#', icon: 'fas fa-bug', label: 'Need Update Later' },
   ]
   let ResultMenu = [
@@ -198,16 +198,22 @@ router.get('/qbank-list', async (req, res) => {
   let navMenu = [
     { link: `${link}`, icon: 'fas fa-chevron-circle-left', label: 'Back' },
   ]
+  let QbankMenu = []
   try {
     // find all question and set to 'qbanks'
     let qbanks = await Qbank.find({})
-      .populate('user', ['displayName', 'email', 'image'])
+      .populate('user', ['displayName', 'image'])
+      .sort({createdAt : 'desc'})
       .lean()
     // count all qbank on db
     let countQbank = await Qbank.countDocuments({})
-    res.json({
+    res.render('admin/qbank-list',{
+      navTitle : 'All Qbank',
+      navMenu,
+      QbankMenu,
       countQbank,
       qbanks,
+      link,
       typeChange,
       simpleDate
     })
