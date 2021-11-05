@@ -48,10 +48,10 @@ router.get('/qbank', async (req, res) => {
     { link: `${link.qbank_add}`, icon: 'fas fa-plus-circle', label: 'Add' },
   ]
   let QbankMenu = [
-    { link: `${link.qbank_add}`, icon: 'fas fa-plus-circle', label: 'Mass Add', status: 'pending' },
-    { link: `${link.qbank_add}`, icon: 'fas fa-plus-circle', label: 'More Detail', status: 'pending' },
-    { link: `${link.qbank_add}`, icon: 'fas fa-plus-circle', label: 'Mass Edit', status: 'pending' },
-    { link: `${link.qbank_add}`, icon: 'fas fa-plus-circle', label: 'Mass Delete', status: 'pending' },
+    { link: `${link.qbank_add}`, icon: 'fas fa-bug', label: 'Mass Add', status: 'pending' },
+    { link: `${link.qbank_add}`, icon: 'fas fa-bug', label: 'More Detail', status: 'pending' },
+    { link: `${link.qbank_add}`, icon: 'fas fa-bug', label: 'Mass Edit', status: 'pending' },
+    { link: `${link.qbank_add}`, icon: 'fas fa-bug', label: 'Mass Delete', status: 'pending' },
   ]
   try {
     const qbanks = await QBank.find({ user: req.user.id })
@@ -104,7 +104,6 @@ router.route('/qbank-add')
       if (req.body.body === ' ') {
         return res.redirect(`${link.qbank}`)
       }
-
       // save all data from req.body to db
       const qbank = new QBank(req.body)
       await qbank.save()

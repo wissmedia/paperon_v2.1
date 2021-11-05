@@ -34,6 +34,31 @@
             </div>
           </div>
 
+          <!-- Menus -->
+          <div class="content fadeInKiri">
+            <div class="line"></div>
+            <div class="bungkus-content">
+              <h1>Respondent Setting</h1>
+            </div>
+            <div class="card-container scroll-samping">
+              <!-- Menu Item Card -->
+              <% RespoSettMenu.forEach(menu=> { %>
+                <div class="card <%=(menu.status ? 'pending' : '' ) %>">
+                  <a href="<%= menu.link %> ">
+                    <h3>
+                      <i class="<%= menu.icon %> "></i>
+                    </h3>
+                    <div class="card-label">
+                      <p>
+                        <%= menu.label %>
+                      </p>
+                    </div>
+                  </a>
+                </div>
+                <% }) %>
+            </div>
+          </div>
+
         </div>
       </div>
       <!-- MODAL MENU -->

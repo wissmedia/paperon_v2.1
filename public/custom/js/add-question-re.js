@@ -206,7 +206,7 @@ $(document).ready(function () {
 
 						<div class="container-control-edit">
 							<div class="control-edit">
-								<span class="wajib"><input type="checkbox" name="wajib" class="wajibisi"><label class="wajiblabel">Required</label></span>
+								<span class="wajib"><input type="checkbox" name="useWajib" class="wajibisi"><label class="wajiblabel">Required</label></span>
 								<span class="divider">|</span>
 								<button class="remove" type="button"><i class="fas fa-trash"></i></button>
 							</div>

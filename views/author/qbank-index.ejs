@@ -39,43 +39,43 @@
           <div class="data-content fadeInAtas">
             <!-- responsive table -->
             <% if (qbanks.length>0) { %>
-
-              <table id="dataTable" class="data-table">
-                <thead>
-                  <tr>
-                    <th>No</th>
-                    <th>Question</th>
-                    <th>Type</th>
-                    <th>Action</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <% qbanks.forEach((item, index)=> { %>
+              <div class="table-responsive">
+                <table id="dataTable" class="data-table">
+                  <thead>
                     <tr>
-                      <td>
-                        <%= index+1 %>
-                      </td>
-                      <td><a href="<%= link.qbank_detail %>/?id=<%= item._id %>">
-                          <%= item.body %>
-                            <%= (item.useWajib=='on' ? '*' : '' ) %>
-                        </a></td>
-                      <td>
-                        <%= typeChange(item.tipe) %>
-                      </td>
-                      <td>
-                        <form action="<%= link.qbank_delete %>/?id=<%= item._id %>" method="POST" id="delete-form">
-                          <input type="hidden" name="_method" value="DELETE">
-                          <a href="<%= link.qbank_edit %>/?id=<%= item._id %>"><button type="button"
-                              class="tombol tmb-utama bunder"><i class="fas fa-pencil-alt"></i></button></a>
-                          <button type="submit" class="tombol tmb-batal bunder"><i
-                              class="fas fa-trash-alt"></i></button>
-                        </form>
-                      </td>
+                      <th>No</th>
+                      <th>Question</th>
+                      <th>Type</th>
+                      <th>Action</th>
                     </tr>
-                    <% }) %>
-                </tbody>
-              </table>
-
+                  </thead>
+                  <tbody>
+                    <% qbanks.forEach((item, index)=> { %>
+                      <tr>
+                        <td>
+                          <%= index+1 %>
+                        </td>
+                        <td><a href="<%= link.qbank_detail %>/?id=<%= item._id %>">
+                            <%= item.body %>
+                              <%= (item.useWajib=='on' ? '*' : '' ) %>
+                          </a></td>
+                        <td>
+                          <%= typeChange(item.tipe) %>
+                        </td>
+                        <td>
+                          <form action="<%= link.qbank_delete %>/?id=<%= item._id %>" method="POST" id="delete-form">
+                            <input type="hidden" name="_method" value="DELETE">
+                            <a href="<%= link.qbank_edit %>/?id=<%= item._id %>"><button type="button"
+                                class="tombol tmb-utama bunder"><i class="fas fa-pencil-alt"></i></button></a>
+                            <button type="submit" class="tombol tmb-batal bunder"><i
+                                class="fas fa-trash-alt"></i></button>
+                          </form>
+                        </td>
+                      </tr>
+                      <% }) %>
+                  </tbody>
+                </table>
+              </div>
               <% } else { %>
                 <div class="info-content fadeInAtas">
                   <p>No questions created yet</p>
