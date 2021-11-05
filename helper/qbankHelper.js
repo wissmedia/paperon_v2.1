@@ -74,7 +74,7 @@ function warnMess(tipe) {
     case 'dropDown':
     case 'radioGrid':
     case 'checkGrid':
-      return '<p>*Clear options and save to delete options</p>'
+      return '<p>*if there is no option then it will not be updated</p>'
     case 'linearScale':
       return `
       <p>* Ubah jumlah opsi dan simpan untuk mengganti jumlah opsi, jumlah opsi tidak dapat dihapus</p>
@@ -508,7 +508,214 @@ function qbankEdit(qbank) {
           <input type="text" name="body" id="body" class="text" value="${body}" required>
         </div>
         `
+    case 'radio':
+      outputRB = opsiy.map((opsi, i) => {
+        return `
+            <div class="edit-group setInput">
+              <input type="radio" name="pilih" id="pilih1" disabled>
+              <input type="text" name="opsiy" id="opsi" class="text" value="${opsi}" required>
+              <a class="del btn-del"><i class="fas fa-times"></i></a>
+            </div>
+            `
+      }).join('')
+      return `
+          <div class="bungkus-content edit">
+            <label for="tipe">Question Text :</label>
+            <input type="text" name="body" id="body" class="text" value="${body}" required>
+          </div>
+  
+          <div class="bungkus-content edit">
+            <label for="">Option :</label>
+            ${outputRB}
+            <div class="edit-group addInput">
+              <input type="radio" name="pilih" id="pilih1" disabled>
+              <input type="text" class="text addOpsiKolom" placeholder="Add Option" readonly>
+            </div>
+          </div>
+          `
+    case 'checkBox':
+      outputCB = opsiy.map((opsi, i) => {
+        return `
+            <div class="edit-group setInput">
+              <input type="checkbox" name="pilih" id="pilih1" disabled>
+              <input type="text" name="opsiy" id="opsi" class="text" value="${opsi}" required>
+              <a class="del btn-del"><i class="fas fa-times"></i></a>
+            </div>
+            `
+      }).join('')
+      return `
+          <div class="bungkus-content edit">
+            <label for="tipe">Question Text :</label>
+            <input type="text" name="body" id="body" class="text" value="${body}" required>
+          </div>
+  
+          <div class="bungkus-content edit">
+            <label for="">Opsi :</label>
+            ${outputCB}
+            <div class="edit-group addInput">
+              <input type="checkbox" name="pilih" id="pilih1" disabled>
+              <input type="text" class="text addOpsiCheckKolom" placeholder="Add Option" readonly>
+            </div>
+          </div>
+          `
+    case 'dropDown':
+      outputDD = opsiy.map((opsi, i) => {
+        return `
+            <div class="edit-group setInput">
+              <span id="nomor" class="nomor">&#9672;</span>
+              <input type="text" name="opsiy" id="opsi" class="text" value="${opsi}" required>
+              <a class="del btn-del"><i class="fas fa-times"></i></a>
+            </div>
+            `
+      }).join('')
+      return `
+          <div class="bungkus-content edit">
+            <label for="tipe">Question Text :</label>
+            <input type="text" name="body" id="body" class="text" value="${body}" required>
+          </div>
+  
+          <div class="bungkus-content edit">
+            <label for="">Options :</label>
+            ${outputDD}
+            <div class="edit-group addInput">
+              <span id="nomor">&#9672;</span>
+              <input type="text" class="text addOpsiDaftar" placeholder="Add Option" readonly>
+            </div>
+          </div>
+          `
+    case 'radioGrid':
+      outputRGX = opsix.map((opsi, i) => {
+        return `
+            <div class="edit-group setInput">
+              <input type="radio" name="pilih" id="pilih1" disabled>
+              <input type="text" name="opsix" id="opsi" class="text" value="${opsi}" required>
+              <a class="del btn-del"><i class="fas fa-times"></i></a>
+            </div>
+            `
+      }).join('')
+      outputRGY = opsiy.map((opsi, i) => {
+        return `
+            <div class="edit-group setInput">
+              <input type="radio" name="pilih" id="pilih1" disabled>
+              <input type="text" name="opsiy" id="opsi" class="text" value="${opsi}" required>
+              <a class="del btn-del"><i class="fas fa-times"></i></a>
+            </div>
+            `
+      }).join('')
+      return `
+          <div class="bungkus-content edit">
+            <label for="tipe">Question Text :</label>
+            <input type="text" name="body" id="body" class="text" value="${body}" required>
+          </div>
+  
+          <div class="bungkus-content edit">
+            <div class="baris">
+              <label for="">Row</label>
+              ${outputRGX}
+              <div class="edit-group addInput">
+                <input type="radio" name="pilih" id="pilih1" disabled>
+                <input type="text" class="text addOpsiBaris" placeholder="Add Row" readonly>
+              </div>
+            </div>
+  
+            <div class="kolom">
+              <label for="">Column</label>
+              ${outputRGY}
+              <div class="edit-group addInput">
+                <input type="radio" name="pilih" id="pilih1" disabled>
+                <input type="text" class="text addOpsiKolom" placeholder="Add Column" readonly>
+              </div>
+            </div>
+          </div>
+          `
+    case 'checkGrid':
+      outputRGX = opsix.map((opsi, i) => {
+        return `
+            <div class="edit-group setInput">
+              <input type="checkbox" name="pilih" id="pilih1" disabled>
+              <input type="text" name="opsix" id="opsi" class="text" value="${opsi}" required>
+              <a class="del btn-del"><i class="fas fa-times"></i></a>
+            </div>
+            `
+      }).join('')
+      outputRGY = opsiy.map((opsi, i) => {
+        return `
+            <div class="edit-group setInput">
+              <input type="checkbox" name="pilih" id="pilih1" disabled>
+              <input type="text" name="opsiy" id="opsi" class="text" value="${opsi}" required>
+              <a class="del btn-del"><i class="fas fa-times"></i></a>
+            </div>
+            `
+      }).join('')
+      return `
+          <div class="bungkus-content edit">
+            <label for="tipe">Question Text :</label>
+            <input type="text" name="body" id="body" class="text" value="${body}" required>
+          </div>
+  
+          <div class="bungkus-content edit">
+            <div class="baris">
+              <label for="">Row</label>
+              ${outputRGX}
+              <div class="edit-group addInput">
+                <input type="checkbox" name="pilih" id="pilih1" disabled>
+                <input type="text" class="text addOpsiCheckBaris" placeholder="Add Row" readonly>
+              </div>
+            </div>
+  
+            <div class="kolom">
+              <label for="">Column</label>
+              ${outputRGY}
+              <div class="edit-group addInput">
+                <input type="checkbox" name="pilih" id="pilih1" disabled>
+                <input type="text" class="text addOpsiCheckKolom" placeholder="Add Column" readonly>
+              </div>
+            </div>
+          </div>
+          `
 
+    case 'linearScale':
+      return `
+          <div class="bungkus-content edit">
+            <label for="tipe">Question Text :</label>
+            <input type="text" name="body" id="body" class="text" value="${body}" required>
+          </div>
+  
+          <div class="bungkus-content edit">
+            <label for="">Number of options : </label>
+            <br>
+            <select name="sl" class="dropdown ddA">
+              <option value="0" ${sl[0] == 0 ? 'selected' : ''}>0</option>
+              <option value="1" ${sl[0] == 1 ? 'selected' : ''}>1</option>
+            </select>
+  
+            <span>to</span>
+  
+            <select name="sl" class="dropdown ddB">
+              <option value="2" ${sl[1] == 2 ? 'selected' : ''}>2</option>
+              <option value="3" ${sl[1] == 3 ? 'selected' : ''}>3</option>
+              <option value="4" ${sl[1] == 4 ? 'selected' : ''}>4</option>
+              <option value="5" ${sl[1] == 5 ? 'selected' : ''}>5</option>
+              <option value="6" ${sl[1] == 6 ? 'selected' : ''}>6</option>
+              <option value="7" ${sl[1] == 7 ? 'selected' : ''}>7</option>
+              <option value="8" ${sl[1] == 8 ? 'selected' : ''}>8</option>
+              <option value="9" ${sl[1] == 9 ? 'selected' : ''}>9</option>
+              <option value="10" ${sl[1] == 10 ? 'selected' : ''}>10</option>
+            </select>
+          </div>
+          
+          <div class="bungkus-content edit">
+            <label for="">Label (opsional) : </label>
+            <div class="label-skala">
+              <span id="skala-a" class="skala-a">0</span>
+              <input type="text" name="label" class="" value="${label[0]}">
+            </div>
+            <div class="label-skala">
+              <span id="skala-b" class="skala-b">10</span>
+              <input type="text" name="label" class="" value="${label[1]}">
+            </div>
+          </div>
+          `
     default:
       return `<p>Type <strong>${tipe}</strong> need template render</p>`
   }

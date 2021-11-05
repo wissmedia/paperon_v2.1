@@ -766,12 +766,12 @@ $(document).ready(function () {
 });
 
 // Cek space
-$(document).ready(function(){
-	$("body").on("click",".execute", function(){
-			let cek = $("input:text").val();
-			let space = cek.slice(0,1);
-			if (space === " ") {
-					alert(`No blank space allowed!`);
-			}
+$(document).ready(function () {
+	$("body").on("click", ".execute", function () {
+		let cek = $("input:text").val();
+		let space = cek.slice(0, 1);
+		if (space === " ") {
+			alert(`No blank space allowed!`);
+		}
 	});
 });

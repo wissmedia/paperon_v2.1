@@ -53,6 +53,10 @@ table.dataTables td{
 }
 /* END Data Tables Custom */
 
+::-webkit-calendar-picker-indicator {
+    filter: invert(1);
+}
+
 /* Responsive slide kanan kiri */
 .x-auto{
     overflow-x: auto;
