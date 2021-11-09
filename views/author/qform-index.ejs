@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<!-- HEAD PARTIALS -->
+<%- include('../partials/head.ejs') %>
+  <!-- DataTables -->
+  <link rel="stylesheet" href="/datatables/datatables.min.css">
+
+  <body>
+    <!-- NAV PARTIALS -->
+    <%- include('../partials/nav.ejs') %>
+      <div class="container">
+        <div class="row-content">
+          <video width="320" height="240" controls>
+            <source
+              src="https://cdn.thatguyjack.co.uk/Pibi1/JItETOYe91/raw.mp4"
+              type="video/mp4">
+            Your browser does not support the video tag.
+          </video>
+          <!-- QFORM Menus -->
+          <div class="content fadeInKiri">
+            <div class="line"></div>
+            <div class="bungkus-content">
+              <h1>Question Form Menu</h1>
+              <div class="card-container scroll-samping">
+                <!-- Menu Item Card -->
+                <% QformMenu.forEach(menu=> { %>
+                  <div class="card <%=(menu.status ? 'pending' : '' ) %>">
+                    <a href="<%= menu.link %> ">
+                      <h3>
+                        <i class="<%= menu.icon %> "></i>
+                      </h3>
+                      <div class="card-label">
+                        <p>
+                          <%= menu.label %>
+                        </p>
+                      </div>
+                    </a>
+                  </div>
+                  <% }) %>
+              </div>
+            </div>
+          </div>
+
+          <div class="data-content fadeInAtas">
+            <!-- responsive table -->
+            <% if (qforms.length>0) { %>
+              <div class="table-responsive">
+                <table id="dataTable" class="data-table">
+                  <thead>
+                    <tr>
+                      <th>No</th>
+                      <th>Question</th>
+                      <th>Status</th>
+                      <th>State</th>
+                      <th>QCode</th>
+                      <th>Action</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <% qforms.forEach((item, index)=> { %>
+                      <tr>
+                        <td>
+                          <%= index+1 %>
+                        </td>
+                        <td><a href="<%= link.qform_detail %>/?id=<%= item._id %>">
+                            <%= item.title %>
+                              <%= (item.useWajib=='on' ? '*' : '' ) %>
+                          </a></td>
+                        <td>
+                          <%= item.status %>
+                        </td>
+                        <td>
+                          <%= item.state %>
+                        </td>
+                        <td>
+                          <%= item.qcode %>
+                        </td>
+                        <td>
+                          <form action="<%= link.qform_delete %>/?id=<%= item._id %>" method="POST" id="delete-form">
+                            <input type="hidden" name="_method" value="DELETE">
+                            <a href="<%= link.qform_edit %>/?id=<%= item._id %>"><button type="button"
+                                class="tombol tmb-utama bunder"><i class="fas fa-pencil-alt"></i></button></a>
+                            <button type="submit" class="tombol tmb-batal bunder"><i
+                                class="fas fa-trash-alt"></i></button>
+                          </form>
+                        </td>
+                      </tr>
+                      <% }) %>
+                  </tbody>
+                </table>
+              </div>
+              <% } else { %>
+                <div class="info-content fadeInAtas">
+                  <p>No questions created yet</p>
+                  <p>Click <strong>Add</strong> to start creating questions</p>
+                </div>
+                <% } %>
+          </div>
+
+        </div>
+      </div>
+      <!-- MODAL MENU -->
+      <%- include('../partials/modal-auth.ejs') %>
+        <!-- FOOTER PARTIALS -->
+        <%- include('../partials/footer.ejs') %>
+          <!-- SCRIPT PARTIALS -->
+          <%- include('../partials/scripts.ejs') %>
+            <!-- DataTables -->
+            <script src="/datatables/datatables.min.js"></script>
+            <script>
+              $(document).ready(function () {
+                $('#dataTable').DataTable({
+                  lengthMenu: [[5, 10, 20, -1], [5, 10, 20, "All"]],
+                });
+              });
+            </script>
+  </body>
+
+</html>

@@ -1,9 +1,11 @@
 const router = require('express').Router()
+const createQC = require('generate-api-key')
 const QBank = require('../models/qbank')
-const fetch = require('node-fetch')
+const QForm = require('../models/qform')
+
 const { typeChange, qbankRender, qbankEdit, warnMess, isWajibCB, pendWajib } = require('../helper/qbankHelper')
 const { simpleDate } = require('../helper/dateFormat')
-const { localsName } = require('ejs')
+const { removeKeys, qbankArrayRender } = require('../helper/qformHelper')
 
 const link = {
   root: '/author',
@@ -12,6 +14,11 @@ const link = {
   qbank_detail: '/author/qbank-detail',
   qbank_edit: '/author/qbank-edit',
   qbank_delete: '/author/qbank-delete',
+  qform: '/author/qform',
+  qform_add: '/author/qform-add',
+  qform_detail: '/author/qform-detail',
+  qform_edit: '/author/qform-edit',
+  qform_delete: '/author/qform-delete',
 }
 
 /**
@@ -24,7 +31,7 @@ router.get('/', (req, res) => {
   ]
   let AuthorMenu = [
     { link: `${link.root}/qbank`, icon: 'fas fa-warehouse', label: 'QBank' },
-    { link: `${link.root}/qform`, icon: 'fas fa-newspaper', label: 'QForm', status: 'pending' },
+    { link: `${link.root}/qform`, icon: 'fas fa-newspaper', label: 'QForm' },
     { link: `${link.root}/result`, icon: 'fas fa-poll', label: 'Result', status: 'pending' },
   ]
   let AuthorSetting = [
@@ -243,22 +250,212 @@ router.get('/qbank/fetch', async (req, res) => {
 })
 
 /**
- * QFrom Routes
+ *  @desc    Qform List Page
+ *  @route   GET /author/qform
+ *  @tag     #qform
  */
-// @desc    Qform List Page
-// @route   GET /author/qform
 router.get('/qform', async (req, res) => {
   let navMenu = [
     { link: '/author', icon: 'fas fa-chevron-circle-left', label: 'Back' },
+    { link: `${link.qform_add}`, icon: 'fas fa-plus-circle', label: 'Add' },
   ]
+  let QformMenu = [
+    { link: `${link.qform_add}`, icon: 'fas fa-bug', label: 'Mass Add', status: 'pending' },
+    { link: `${link.qbank_add}`, icon: 'fas fa-bug', label: 'More Detail', status: 'pending' },
+    { link: `${link.qbank_add}`, icon: 'fas fa-bug', label: 'Mass Edit', status: 'pending' },
+    { link: `${link.qbank_add}`, icon: 'fas fa-bug', label: 'Mass Delete', status: 'pending' },
+  ]
+  let qforms = await QForm.find({}).lean()
   try {
-    res.render('author/qform', {
+    res.render('author/qform-index', {
       navTitle: 'Qform Panel',
       navMenu,
+      link,
+      QformMenu,
+      qforms
     })
   } catch (error) {
     console.error(error)
     // return res.render('error/index')
+  }
+})
+
+router.route('/qform-add')
+  .get(async (req, res) => {
+    let navMenu = [
+      { link: `${link.qform}`, icon: 'fas fa-chevron-circle-left', label: 'Back' },
+    ]
+    step = parseInt(req.query.step)
+    let id = ''
+    let qform = ''
+    switch (step) {
+      case 1:
+        id = req.query.id
+        qform = ''
+        let qbanks = []
+        try {
+          qform = await QForm.findById(id).lean()
+          qbanks = await QBank.find({ user: req.user.id })
+            .sort({ createdAt: 'desc' })
+            .lean()
+        } catch (error) {
+          console.error(error)
+        }
+        return res.render('author/qform-add-select', {
+          navTitle: 'Create QForm',
+          navMenu,
+          link,
+          id,
+          step,
+          qform,
+          qbanks,
+          typeChange
+        })
+      case 2:
+        id = req.query.id
+        try {
+          qform = await QForm.findById(id).lean()
+        } catch (error) {
+          console.error(error)
+        }
+        return res.render('author/qform-add-order', {
+          navTitle: 'Create QForm',
+          navMenu,
+          link,
+          id,
+          step,
+          qform,
+          typeChange
+        })
+      case 3:
+        id = req.query.id
+        try {
+          qform = await QForm.findById(id, { "status": 1, "state": 1, "qcode": 1, }).lean()
+        } catch (error) {
+          console.error(error)
+        }
+        return res.render('author/qform-add-publish', {
+          navTitle: 'Create QForm',
+          navMenu,
+          link,
+          id,
+          step,
+          qform,
+        })
+      default:
+        return res.render('author/qform-add', {
+          navTitle: 'Create QForm',
+          navMenu,
+          link
+        })
+    }
+  })
+  .post(async (req, res) => {
+    let step = parseInt(req.query.step)
+    let idF = ''
+    let db = ''
+    let body = ''
+    switch (step) {
+      case 0:
+        body = req.body
+        body.step = step
+        try {
+          let qform = new QForm(body)
+          await qform.save()
+          res.redirect(`${link.qform_add}/?step=1&id=${qform._id}`)
+        } catch (error) {
+          console.error(error)
+        }
+        break;
+      case 1:
+        let { idQ } = req.body
+        idF = req.query.id
+        let qbanks = []
+        let newData = []
+        let idS = []
+        try {
+          db = await QBank.find({ '_id': { $in: idQ } }).lean()
+          // Loop to change objectId of _id to array of id Strings in idS
+          for (let i = 0; i < db.length; i++) {
+            let id = db[i]._id.toString()
+            idS.push(id)
+          }
+          // Loop to remove keys form data array, saved as newData
+          let remove = ['_id', 'user', '__v', 'createdAt', 'updatedAt']
+          for (let i = 0; i < db.length; i++) {
+            let result = removeKeys(db[i], remove)
+            newData.push(result)
+          }
+          // Loop to create qbanks object array, will saved later to qbanksArray in qform
+          for (let i = 0; i < db.length; i++) {
+            let qbank = {
+              id: idS[i],
+              order: null,
+              priority: null,
+              data: newData[i]
+            }
+            qbanks.push(qbank)
+          }
+          await QForm.findByIdAndUpdate(idF, { "step": step, "qbankArray": qbanks })
+          res.redirect(`${link.qform_add}/?step=2&id=${idF}`)
+        } catch (error) {
+          console.error(error)
+        }
+        break;
+      case 2:
+        idF = req.query.id
+        body = req.body
+        try {
+          db = await QForm.findById(idF, { "qbankArray": 1 }).lean()
+          // add priority based on body keys
+          for (let i = 0; i < Object.keys(body).length; i++) {
+            if (db.qbankArray[i].id == Object.keys(body)[i]) {
+              db.qbankArray[i].priority = body[db.qbankArray[i].id]
+            }
+          }
+          await QForm.findByIdAndUpdate(idF, { "step": step, "qbankArray": db.qbankArray })
+          res.redirect(`${link.qform_add}/?step=3&id=${idF}`)
+        } catch (error) {
+          console.error(error)
+        }
+        break;
+      case 3:
+        idF = req.query.id
+        body = req.body
+        body.step = step
+        try {
+          if (body.state == 'private') {
+            body.qcode = createQC({ method: 'string', pool: 'ABCDEFGHIJKLMNOPQRSTUVWXYZ', length: 4 })
+          }
+          await QForm.findByIdAndUpdate(idF, body)
+          res.redirect(`${link.qform_detail}/?id=${idF}`)
+        } catch (error) {
+          console.error(error)
+        }
+        break;
+      default:
+        break;
+    }
+  })
+
+router.get('/qform-detail', async (req, res) => {
+  let navMenu = [
+    { link: `${link.qform}`, icon: 'fas fa-chevron-circle-left', label: 'Back' },
+  ]
+  let id = req.query.id
+  try {
+    let qform = await QForm.findById(id).lean()
+    qform.qbankArray.sort((a, b) => (a.priority > b.priority ? 1 : -1))
+    res.render('author/qform-detail', {
+      navTitle: 'Create QForm',
+      navMenu,
+      link,
+      qform,
+      simpleDate,
+      qbankArrayRender
+    })
+  } catch (error) {
+    console.error(error)
   }
 })
 

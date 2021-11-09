@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<!-- HEAD PARTIALS -->
+<%- include('../partials/head.ejs') %>
+  <!-- DataTables -->
+  <link rel="stylesheet" href="/datatables/datatables.min.css">
+
+  <body>
+    <!-- NAV PARTIALS -->
+    <%- include('../partials/nav.ejs') %>
+      <div class="container">
+        <div class="row-content">
+
+          <form action="<%= link.qform_add %>/?step=3&id=<%= qform._id %>" method="POST">
+            <div class="content fadeInKiri">
+              <div class="line"></div>
+              <div class="bungkus-content edit">
+                <h1>QForm Publish</h1>
+                <p>X</p>
+              </div>
+            </div>
+
+            
+            <div class="content fadeInKiri">
+              <div class="line"></div>
+              
+              <div class="bungkus-content">
+                <label for="status">Status : </label>
+                <select name="status" id="status" class="dropdown" required>
+                  <option hidden selected value="">-- Select</option>
+                  <option value="draft">Add Draft</option>
+                  <option value="publish">Ready to Publish</option>
+                </select>
+              </div>
+              <div class="bungkus-content">
+                <label for="state">State : </label>
+                <select name="state" id="state" class="dropdown" required>
+                  <option hidden selected value="">-- Select</option>
+                  <option value="public">Make Public</option>
+                  <option value="private">Make Private</option>
+                  <option value="anon">Make Anonymous</option>
+                </select>
+              </div>
+
+            </div>
+
+
+            <center>
+              <button type="submit" class="tombol-md tmb-utama bunder fadeInBawah">Kirim</button>
+            </center>
+          </form>
+
+
+        </div>
+      </div>
+      </div>
+      <!-- MODAL MENU -->
+      <%- include('../partials/modal-auth.ejs') %>
+        <!-- FOOTER PARTIALS -->
+        <%- include('../partials/footer.ejs') %>
+          <!-- SCRIPT PARTIALS -->
+          <%- include('../partials/scripts.ejs') %>
+            <!-- DataTables -->
+            <script src="/datatables/datatables.min.js"></script>
+            <script>
+              $(document).ready(function () {
+                $('#dataTable').DataTable({
+                  lengthMenu: [[5, 10, 20, -1], [5, 10, 20, "All"]],
+                });
+              });
+            </script>
+  </body>
+
+</html>

@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<!-- HEAD PARTIALS -->
+<%- include('../partials/head.ejs') %>
+
+  <body>
+    <!-- NAV PARTIALS -->
+    <%- include('../partials/nav.ejs') %>
+      <div class="container">
+        <div class="row-content">
+
+          <form action="<%= link.qform_add %>/?step=0" method="POST">
+            <div class="content fadeInKiri">
+              <div class="line"></div>
+              <div class="bungkus-content edit">
+                <h1>Create QForm Title</h1>
+              </div>
+              <div class="bungkus-content edit">
+                <label for="title">Title : </label>
+                <input type="text" name="title" id="title" class="text" placeholder="Required" required>
+              </div>
+
+              <div class="bungkus-content edit">
+                <label for="desc">Description : </label>
+                <textarea name="desc" id="desc" cols="30" rows="10" placeholder="Optional"></textarea>
+              </div>
+
+            </div>
+            <center>
+              <button type="submit" class="tombol-md tmb-utama bunder fadeInBawah">Submit</button>
+            </center>
+          </form>
+
+          </div>
+        </div>
+      </div>
+      <!-- MODAL MENU -->
+      <%- include('../partials/modal-auth.ejs') %>
+        <!-- FOOTER PARTIALS -->
+        <%- include('../partials/footer.ejs') %>
+          <!-- SCRIPT PARTIALS -->
+          <%- include('../partials/scripts.ejs') %>
+  </body>
+
+</html>

@@ -4,8 +4,8 @@
   "description": "Clone of paperon_v2",
   "main": "server.js",
   "scripts": {
-    "prod": "cross-env NODE_ENV=production node app",
-    "dev": "cross-env NODE_ENV=development nodemon app"
+    "prod": "cross-env NODE_ENV=production node server.js",
+    "dev": "cross-env NODE_ENV=development nodemon server.js"
   },
   "repository": {
     "type": "git",
@@ -20,23 +20,20 @@
   "homepage": "https://github.com/wissmedia/paperon_v2.1#readme",
   "devDependencies": {
     "cross-env": "^7.0.3",
-    "nodemon": "^2.0.13"
+    "nodemon": "^2.0.14"
   },
   "dependencies": {
-    "bcryptjs": "^2.4.3",
     "connect-mongo": "^4.6.0",
     "dotenv": "^10.0.0",
     "ejs": "^3.1.6",
     "express": "^4.17.1",
     "express-session": "^1.17.2",
     "generate-api-key": "^1.0.0",
-    "jsonwebtoken": "^8.5.1",
     "localbase": "^0.7.5",
     "method-override": "^3.0.0",
     "moment": "^2.29.1",
     "mongoose": "^6.0.11",
     "morgan": "^1.10.0",
-    "node-fetch": "^2.6.5",
     "passport": "^0.5.0",
     "passport-google-oauth20": "^2.0.0"
   }

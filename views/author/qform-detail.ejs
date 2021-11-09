@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<!-- HEAD PARTIALS -->
+<%- include('../partials/head.ejs') %>
+
+  <body>
+    <!-- NAV PARTIALS -->
+    <%- include('../partials/nav.ejs') %>
+      <div class="container">
+        <div class="row-content">
+
+          <% if (qform) { %>
+            <div class="content fadeInKiri">
+              <div class="line"></div>
+              <% if (qform.qcode != null ) { %>
+                <!-- QCode -->
+                <div class="bungkus-content edit">
+                  <label for="qcode">QCode :</label>
+                  <input type="text" id="qcode" class="text" disabled value="<%= qform.qcode %>">
+                </div>
+                <% } %>
+                  <!-- Judul -->
+                  <div class="bungkus-content edit">
+                    <label for="judul">Judul :</label>
+                    <input type="text" id="judul" class="text" disabled value="<%= qform.title %>">
+                  </div>
+                  <% if (qform.desc !="" ) { %>
+                    <!-- Subjudul -->
+                    <div class="bungkus-content edit">
+                      <label for="subjudul">Deskripsi :</label>
+                      <textarea name="subjudul" id="subjudul" cols="30" rows="10" disabled><%= qform.desc %></textarea>
+                    </div>
+                    <% } %>
+                      <div class="bungkus-content edit">
+                        <p>Status : <%= qform.status %>
+                        </p>
+                        <p>State : <%= qform.state %>
+                        </p>
+                      </div>
+                      <div class="bungkus-content edit">
+                        <!-- Created DateTime -->
+                        <p>
+                          Created : <%= simpleDate(qform.createdAt) %>
+                        </p>
+                        <!-- Last Update DateTime -->
+                        <p>Last Updated : <%= simpleDate(qform.updatedAt) %>
+                        </p>
+                      </div>
+            </div>
+            <div class="content fadeInKiri">
+              <div class="line"></div>
+              <div class="bungkus-content">
+                <p>*QForm Preview</p>
+              </div>
+              <% qform.qbankArray.forEach(item=> { %>
+                <div class="bungkus-content solid-border">
+                  <div class="nomor-urut putih">
+                    <label>Priority :</label>
+                    <input type="number" class="input-nomor" value="<%= item.priority %>">
+                  </div>
+                  <%- qbankArrayRender(item.data, true) %>
+                </div>
+                <% }) %>
+            </div>
+            <% } else { %>
+              <div class="content fadeInAtas">
+                <div class="line"></div>
+                <div class="bungkus-content edit">
+                  <h3>Tidak Ada Data</h3>
+                </div>
+              </div>
+              <% } %>
+
+        </div>
+      </div>
+      <!-- MODAL MENU -->
+      <%- include('../partials/modal-auth.ejs') %>
+        <!-- FOOTER PARTIALS -->
+        <%- include('../partials/footer.ejs') %>
+          <!-- SCRIPT PARTIALS -->
+          <%- include('../partials/scripts.ejs') %>
+  </body>
+
+</html>

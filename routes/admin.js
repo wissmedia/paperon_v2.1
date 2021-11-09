@@ -3,7 +3,6 @@ const User = require('../models/user')
 const Qbank = require('../models/qbank')
 const { simpleDate } = require('../helper/dateFormat')
 const { typeChange } = require('../helper/qbankHelper')
-const genApiKey = require('generate-api-key')
 const link = '/admin'
 
 /**
@@ -294,21 +293,21 @@ router.patch('/api-token', async (req, res) => {
      *  Use Promises to handle multiple async update
      *  Conditionally patch based on grant or revoke
      */
-    let updates = []
-    if (req.body.role == 'api-grant') {
-      ids.forEach(id => {
-        let updatePromise = User.updateMany({ _id: id }, { $set: { "apiKey.outbound": genApiKey({ method: 'base32' }) } })
-        updates.push(updatePromise)
-      })
-    } else if (req.body.role == 'api-revoke') {
-      ids.forEach(id => {
-        let updatePromise = User.updateMany({ _id: id }, { $set: { "apiKey.outbound": null } })
-        updates.push(updatePromise)
-      })
-    }
-    Promise.all(updates).then(result => {
-      console.log(result)
-    })
+    // let updates = []
+    // if (req.body.role == 'api-grant') {
+    //   ids.forEach(id => {
+    //     let updatePromise = User.updateMany({ _id: id }, { $set: { "apiKey.outbound": genApiKey({ method: 'base32' }) } })
+    //     updates.push(updatePromise)
+    //   })
+    // } else if (req.body.role == 'api-revoke') {
+    //   ids.forEach(id => {
+    //     let updatePromise = User.updateMany({ _id: id }, { $set: { "apiKey.outbound": null } })
+    //     updates.push(updatePromise)
+    //   })
+    // }
+    // Promise.all(updates).then(result => {
+    //   console.log(result)
+    // })
     /**
      * Change redirect based on role
      */

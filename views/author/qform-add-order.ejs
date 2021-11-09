@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<!-- HEAD PARTIALS -->
+<%- include('../partials/head.ejs') %>
+  <!-- DataTables -->
+  <link rel="stylesheet" href="/datatables/datatables.min.css">
+
+  <body>
+    <!-- NAV PARTIALS -->
+    <%- include('../partials/nav.ejs') %>
+      <div class="container">
+        <div class="row-content">
+
+          <form action="<%= link.qform_add %>/?step=2&id=<%= qform._id %>" method="POST">
+            <div class="content fadeInKiri">
+              <div class="line"></div>
+              <div class="bungkus-content edit">
+                <h1>QBank Order</h1>
+                <p>Questions will be sorted by priority</p>
+                <p>1 is high priority, will appear from above and 9 is low priority, will appear below</p>
+                <p>By default the question has low priority, change it as needed</p>
+                <p>Questions with the same priority will be sorted randomly</p>
+              </div>
+            </div>
+
+            <% qform.qbankArray.forEach((item, index)=> { %>
+              <div class="content fadeInKiri">
+                <div class="line"></div>
+                <div class="bungkus-content">
+                  <div class="nomor-urut">
+                    <label>Priority :</label>
+                    <input type="number" name="<%= item.id %>" value="9" class="input-nomor" required>
+                  </div>
+                </div>
+
+                <div class="bungkus-content edit">
+                  <label for="tipe">Question Text :</label>
+                  <input type="text" id="body" class="text" value="<%= item.data.body%>" readonly>
+                </div>
+
+                <div class="bungkus-content edit">
+                  <label for="tipe">Question Type :</label>
+                  <input type="text" id="body" class="text" value="<%= typeChange(item.data.tipe)%>" readonly>
+                </div>
+              </div>
+              <% }) %>
+
+                <center>
+                  <button type="submit" class="tombol-md tmb-utama bunder fadeInBawah">Kirim</button>
+                </center>
+          </form>
+
+
+        </div>
+      </div>
+      </div>
+      <!-- MODAL MENU -->
+      <%- include('../partials/modal-auth.ejs') %>
+        <!-- FOOTER PARTIALS -->
+        <%- include('../partials/footer.ejs') %>
+          <!-- SCRIPT PARTIALS -->
+          <%- include('../partials/scripts.ejs') %>
+            <!-- DataTables -->
+            <script src="/datatables/datatables.min.js"></script>
+            <script>
+              $(document).ready(function () {
+                $('#dataTable').DataTable({
+                  lengthMenu: [[5, 10, 20, -1], [5, 10, 20, "All"]],
+                });
+              });
+            </script>
+  </body>
+
+</html>

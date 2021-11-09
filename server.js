@@ -7,7 +7,6 @@ const passport = require('passport')
 const session = require('express-session')
 const MongoStore = require('connect-mongo')
 const methodOverride = require('method-override')
-const jwt = require('jsonwebtoken')
 
 // IMPORT AUTH AND ROLE MIDDLEWARE
 const { ensureAuth, isAuth, ensureAPIAuth } = require('./middleware/auth')
@@ -131,3 +130,12 @@ try {
   console.error(error)
   process.exit(1)
 }
+
+/**
+ *  @desc    Route Not Found (404)
+ *  @route   GET /*
+ *  @note    If route not found, render this error page
+ */
+app.use((req, res) => {
+  res.status(404).render('alarm')
+})

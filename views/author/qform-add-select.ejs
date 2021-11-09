@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<!-- HEAD PARTIALS -->
+<%- include('../partials/head.ejs') %>
+  <!-- DataTables -->
+  <link rel="stylesheet" href="/datatables/datatables.min.css">
+
+  <body>
+    <!-- NAV PARTIALS -->
+    <%- include('../partials/nav.ejs') %>
+      <div class="container">
+        <div class="row-content">
+
+          <form action="<%= link.qform_add %>/?step=1&id=<%= qform._id %>" method="POST">
+            <div class="content fadeInKiri">
+              <div class="line"></div>
+              <div class="bungkus-content edit">
+                <h1>Select QBanks</h1>
+              </div>
+            </div>
+
+            <div class="data-content fadeInAtas">
+              <h1>QBanks list</h1>
+              <br>
+              <% if (qbanks.length> 0) { %>
+                <div class="table-responsive">
+                  <table id="dataTable" class="data-table">
+                    <thead>
+                      <tr>
+                        <th></th>
+                        <th>No</th>
+                        <th>Pertanyaan</th>
+                        <th>Tipe</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <% qbanks.forEach((item, index)=> { %>
+                        <tr>
+                          <td><input type="checkbox" name="idQ" value="<%= item._id %>"></td>
+                          <td>
+                            <%= index+1 %>
+                          </td>
+                          <td>
+                            <%= item.body %>
+                              <%= (item.useWajib=='on' ? '*' : '' ) %>
+                          </td>
+                          <td>
+                            <%= typeChange(item.tipe) %>
+                          </td>
+                        </tr>
+                        <% }) %>
+                    </tbody>
+                  </table>
+                </div>
+                <% } else { %>
+                  <div class="info-content fadeInAtas">
+                    <p>No data</p>
+                  </div>
+                  <% } %>
+
+            </div>
+            <br>
+            <center>
+              <button type="submit" class="tombol-md tmb-utama bunder fadeInBawah">Kirim</button>
+            </center>
+          </form>
+
+        </div>
+      </div>
+      </div>
+      <!-- MODAL MENU -->
+      <%- include('../partials/modal-auth.ejs') %>
+        <!-- FOOTER PARTIALS -->
+        <%- include('../partials/footer.ejs') %>
+          <!-- SCRIPT PARTIALS -->
+          <%- include('../partials/scripts.ejs') %>
+            <!-- DataTables -->
+            <script src="/datatables/datatables.min.js"></script>
+            <script>
+              $(document).ready(function () {
+                $('#dataTable').DataTable({
+                  lengthMenu: [[5, 10, 20, -1], [5, 10, 20, "All"]],
+                });
+              });
+            </script>
+  </body>
+
+</html>
