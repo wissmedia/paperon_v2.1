@@ -1,8 +1,11 @@
-const router = require('express').Router()
-const User = require('../models/user')
-const Qbank = require('../models/qbank')
-const { simpleDate } = require('../helper/dateFormat')
-const { typeChange } = require('../helper/qbankHelper')
+import { Router } from 'express'
+import User from '../models/user.js'
+import QBank from '../models/qbank.js'
+
+import { simpleDate } from '../helper/dateFormat.js'
+import { typeChange } from '../helper/qbankHelper.js'
+
+const router = Router()
 const link = '/admin'
 
 /**
@@ -200,14 +203,14 @@ router.get('/qbank-list', async (req, res) => {
   let QbankMenu = []
   try {
     // find all question and set to 'qbanks'
-    let qbanks = await Qbank.find({})
+    let qbanks = await QBank.find({})
       .populate('user', ['displayName', 'image'])
-      .sort({createdAt : 'desc'})
+      .sort({ createdAt: 'desc' })
       .lean()
     // count all qbank on db
-    let countQbank = await Qbank.countDocuments({})
-    res.render('admin/qbank-list',{
-      navTitle : 'All Qbank',
+    let countQbank = await QBank.countDocuments({})
+    res.render('admin/qbank-list', {
+      navTitle: 'All Qbank',
       navMenu,
       QbankMenu,
       countQbank,
@@ -337,4 +340,4 @@ router.get('/api-endpoint', async (req, res) => {
 
 })
 
-module.exports = router
+export default router

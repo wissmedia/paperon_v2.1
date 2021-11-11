@@ -721,7 +721,7 @@ function qbankEdit(qbank) {
   }
 }
 
-module.exports = {
+export {
   typeChange,
   qbankRender,
   qbankEdit,

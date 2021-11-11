@@ -1,4 +1,4 @@
-const mongoose = require('mongoose')
+import mongoose from 'mongoose'
 
 const QFromSchema = new mongoose.Schema({
   userId: {
@@ -36,5 +36,4 @@ const QFromSchema = new mongoose.Schema({
   }
 }, { timestamps: true })
 
-const QFrom = mongoose.model('qform', QFromSchema)
-module.exports = QFrom
+export default mongoose.model('qform', QFromSchema)

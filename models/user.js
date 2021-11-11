@@ -1,4 +1,5 @@
-const mongoose = require('mongoose')
+import mongoose from 'mongoose'
+
 const UserSchema = new mongoose.Schema({
   googleId: {
     type: String,
@@ -30,5 +31,4 @@ const UserSchema = new mongoose.Schema({
   },
 }, { timestamps: true })
 
-const Author = mongoose.model('user', UserSchema)
-module.exports = Author
+export default mongoose.model('user', UserSchema)

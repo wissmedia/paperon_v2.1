@@ -15,6 +15,6 @@ function truncate(str, len) {
   return str
 }
 
-module.exports = {
+export {
   truncate
 }

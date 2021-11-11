@@ -1,4 +1,5 @@
-const mongoose = require('mongoose')
+import mongoose from 'mongoose'
+
 const QBankSchema = new mongoose.Schema({
   user: {
     type: mongoose.Schema.Types.ObjectId,
@@ -35,5 +36,4 @@ const QBankSchema = new mongoose.Schema({
   label: [String]
 }, { timestamps: true })
 
-const QBank = mongoose.model('qbank', QBankSchema)
-module.exports = QBank
+export default mongoose.model('qbank', QBankSchema)

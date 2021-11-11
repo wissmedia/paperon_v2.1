@@ -1,12 +1,12 @@
-const router = require('express').Router()
-const createQC = require('generate-api-key')
-const QBank = require('../models/qbank')
-const QForm = require('../models/qform')
+import { Router } from 'express'
+import createQC from 'generate-api-key'
+import QBank from '../models/qbank.js'
 
-const { typeChange, qbankRender, qbankEdit, warnMess, isWajibCB, pendWajib } = require('../helper/qbankHelper')
-const { simpleDate } = require('../helper/dateFormat')
-const { removeKeys, qbankArrayRender } = require('../helper/qformHelper')
+import { typeChange, qbankRender, qbankEdit, warnMess, isWajibCB, pendWajib } from '../helper/qbankHelper.js'
+import { simpleDate } from '../helper/dateFormat.js'
+import { removeKeys, qbankArrayRender } from '../helper/qformHelper.js'
 
+const router = Router()
 const link = {
   root: '/author',
   qbank: '/author/qbank',
@@ -508,4 +508,4 @@ router.get('/setting', async (req, res) => {
   }
 })
 
-module.exports = router
+export default router

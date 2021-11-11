@@ -1,25 +1,40 @@
 // IMPORT DEPENDENCIES AND REQUIRED FILE
-const express = require('express')
-const path = require('path')
-const dotenv = require('dotenv')
-const morgan = require('morgan')
-const passport = require('passport')
-const session = require('express-session')
-const MongoStore = require('connect-mongo')
-const methodOverride = require('method-override')
+import express from 'express'
+import path from 'path'
+import dotenv from 'dotenv'
+import morgan from 'morgan'
+import passport from 'passport'
+import session from 'express-session'
+import MongoStore from 'connect-mongo'
+import methodOverride from 'method-override'
+import { fileURLToPath } from 'url'
+
+// IMPORT ROUTES
+import AuthRoutes from './routes/auth.js'
+import AdminRoutes from './routes/admin.js'
+import AuthorRoutes from './routes/author.js'
+import RespoRoutes from './routes/respondent.js'
+import APIv1Routes from './routes/api_v1.js'
+import AnonRoutes from './routes/anon.js'
+import ManualRoutes from './routes/manual.js'
+
+//we need to change up how __dirname is used for ES6 purposes
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 // IMPORT AUTH AND ROLE MIDDLEWARE
-const { ensureAuth, isAuth, ensureAPIAuth } = require('./middleware/auth')
-const { isAdmin, isAuthor, ensureAPIRole } = require('./middleware/role')
+import { ensureAuth, isAuth, ensureAPIAuth } from './middleware/auth.js'
+import { isAdmin, isAuthor, ensureAPIRole } from './middleware/role.js'
 
 // LOAD DB CONFIG
-const connectDB = require('./config/db')
+import connectDB from './config/db.js'
 
 // LOAD ENV CONFIG
 dotenv.config({ path: './config/config.env' })
 
 // LOAD PASSPORT CONFIG
-require('./config/passport')(passport)
+import passportConfig from './config/passport.js'
+passportConfig(passport)
 
 // CREATE EXPRESS APP
 const app = express()
@@ -97,30 +112,30 @@ app.get('/', isAuth, (req, res) => {
 // @desc    App Auth Route
 // @route   GET /auth
 // @note    Route to authenticated user
-app.use('/auth', require('./routes/auth'))
+app.use('/auth', AuthRoutes)
 
 // @desc    App Admin Route
 // @route   GET /admin
 // @note    Check if user is authenticate and have role as admin
-app.use('/admin', [ensureAuth, isAdmin], require('./routes/admin'))
+app.use('/admin', [ensureAuth, isAdmin], AdminRoutes)
 
 // @desc    App Author Route
 // @route   GET /author
 // @note    Check if user is authenticate and have role as author
-app.use('/author', [ensureAuth, isAuthor], require('./routes/author'))
+app.use('/author', [ensureAuth, isAuthor], AuthorRoutes)
 
 // @desc    App Respondent Route
 // @route   GET /respondent
 // @note    Authenticated user have role as respondent
-app.use('/respondent', ensureAuth, require('./routes/respondent'))
+app.use('/respondent', ensureAuth, RespoRoutes)
 
 // @desc    API Endpoint Route
 // @route   GET /api/v1
 // @note    Authenticated user have role as respondent
-app.use('/api/v1', [ensureAPIAuth, ensureAPIRole], require('./routes/api_v1'))
+app.use('/api/v1', [ensureAPIAuth, ensureAPIRole], APIv1Routes)
 
-app.use('/anon', require('./routes/anon'))
-app.use('/manual', require('./routes/manual'))
+app.use('/anon', AnonRoutes)
+app.use('/manual', ManualRoutes)
 
 // TRY CONNECT TO DB THEN START SERVER
 try {

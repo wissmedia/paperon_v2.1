@@ -377,7 +377,6 @@ function respoQRender(qbankID, qbankArray, isPreview){
     }
   }
 
-
-module.exports = {
+export {
   respoQRender
 }

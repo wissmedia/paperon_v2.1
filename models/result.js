@@ -1,4 +1,4 @@
-const mongoose = require('mongoose')
+import mongoose from 'mongoose'
 
 const ResultSchema = new mongoose.Schema({
   qformId: {
@@ -11,5 +11,4 @@ const ResultSchema = new mongoose.Schema({
   }
 }, { timestamps: true })
 
-const Result = mongoose.model('result', ResultSchema)
-module.exports = Result
+export default mongoose.model('result', ResultSchema)

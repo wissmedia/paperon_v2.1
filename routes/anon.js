@@ -1,7 +1,9 @@
-const router = require('express').Router()
+import { Router } from 'express'
 
-router.get('/', (req,res) => {
-  res.json({mess:'anon'})
+const router = Router()
+
+router.get('/', (req, res) => {
+  res.json({ mess: 'anon' })
 })
 
-module.exports = router
+export default router

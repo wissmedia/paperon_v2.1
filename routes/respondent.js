@@ -1,11 +1,11 @@
-const router = require('express').Router()
-const User = require('../models/user')
-const QForm = require('../models/qform')
+import { Router } from 'express'
+import User from '../models/user.js'
 
-const { simpleDate } = require('../helper/dateFormat')
-const { qbankArrayRender } = require('../helper/qformHelper')
-const { respoQRender } = require('../helper/respoHelper')
+import { simpleDate } from '../helper/dateFormat.js'
+import { qbankArrayRender } from '../helper/qformHelper.js'
+import { respoQRender } from '../helper/respoHelper.js'
 
+const router = Router()
 const link = {
   root: '/respondent',
   public: '/respondent/public',
@@ -134,4 +134,4 @@ router.route('/profile')
     })
   })
 
-module.exports = router
+  export default router

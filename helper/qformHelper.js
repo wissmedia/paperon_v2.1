@@ -404,7 +404,7 @@ function qbankArrayRender(data, isPreview) {
   }
 }
 
-module.exports = {
+export {
   removeKeys,
   qbankArrayRender
 }

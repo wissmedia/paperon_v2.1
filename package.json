@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "description": "Clone of paperon_v2",
   "main": "server.js",
-  "type": "commonjs",
+  "type": "module",
   "scripts": {
     "prod": "cross-env NODE_ENV=production node server.js",
     "dev": "cross-env NODE_ENV=development nodemon server.js"
@@ -20,6 +20,9 @@
   },
   "homepage": "https://github.com/wissmedia/paperon_v2.1#readme",
   "devDependencies": {
+    "@babel/cli": "^7.16.0",
+    "@babel/core": "^7.16.0",
+    "@babel/preset-env": "^7.16.0",
     "cross-env": "^7.0.3",
     "nodemon": "^2.0.14"
   },

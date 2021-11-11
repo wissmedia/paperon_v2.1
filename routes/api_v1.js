@@ -1,6 +1,7 @@
-const router = require('express').Router()
-const User = require('../models/user')
-const QBank = require('../models/qbank')
+import { Router } from 'express'
+import QBank from '../models/qbank.js'
+
+const router = Router()
 
 // @desc    HealthCheck 
 // @route   GET /api/v1
@@ -30,4 +31,4 @@ router.get('/qbank', async (req, res) => {
   }
 })
 
-module.exports = router
+export default router
