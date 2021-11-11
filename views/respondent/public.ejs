@@ -15,24 +15,7 @@
           <div class="content fadeInKiri">
             <div class="line"></div>
             <div class="bungkus-content">
-              <h1>Question Form Menu</h1>
-              <div class="card-container scroll-samping">
-                <!-- Menu Item Card -->
-                <% QformMenu.forEach(menu=> { %>
-                  <div class="card <%=(menu.status ? 'pending' : '' ) %>">
-                    <a href="<%= menu.link %> ">
-                      <h3>
-                        <i class="<%= menu.icon %> "></i>
-                      </h3>
-                      <div class="card-label">
-                        <p>
-                          <%= menu.label %>
-                        </p>
-                      </div>
-                    </a>
-                  </div>
-                  <% }) %>
-              </div>
+              <h1>Public QForm List</h1>
             </div>
           </div>
 
@@ -44,11 +27,9 @@
                   <thead>
                     <tr>
                       <th>No</th>
-                      <th>Question</th>
-                      <th>Status</th>
-                      <th>State</th>
-                      <th>QCode</th>
-                      <th>Action</th>
+                      <th>Title</th>
+                      <th>Author</th>
+                      <th>CreatedAt</th>
                     </tr>
                   </thead>
                   <tbody>
@@ -57,27 +38,15 @@
                         <td>
                           <%= index+1 %>
                         </td>
-                        <td><a href="<%= link.qform_detail %>/?id=<%= item._id %>">
+                        <td><a href="<%= link.public %>/?id=<%= item._id %>">
                             <%= item.title %>
-                              <%= (item.useWajib=='on' ? '*' : '' ) %>
-                          </a></td>
-                        <td>
-                          <%= item.status %>
+                          </a>
                         </td>
                         <td>
-                          <%= item.state %>
+                          <%= item.userId.displayName %>
                         </td>
                         <td>
-                          <%= item.qcode %>
-                        </td>
-                        <td>
-                          <form action="<%= link.qform_delete %>/?id=<%= item._id %>" method="POST" id="delete-form">
-                            <input type="hidden" name="_method" value="DELETE">
-                            <a href="<%= link.qform_edit %>/?id=<%= item._id %>"><button type="button"
-                                class="tombol tmb-utama bunder"><i class="fas fa-pencil-alt"></i></button></a>
-                            <button type="submit" class="tombol tmb-batal bunder"><i
-                                class="fas fa-trash-alt"></i></button>
-                          </form>
+                          <%= simpleDate(item.createdAt) %>
                         </td>
                       </tr>
                       <% }) %>

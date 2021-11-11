@@ -51,13 +51,13 @@ $(document).ready(function () {
     });
 });
 
-// Disable Button Reset
-$(document).ready(function () {
-    let cek = $(".content").find("input:radio, input:checkbox");
-    if (cek.prop("checked") == false) {
-        $("button").attr("disabled", "disabled").addClass("disabled");
-    }
-});
+// // Disable Button Reset
+// $(document).ready(function () {
+//     let cek = $(".content").find("input:radio, input:checkbox");
+//     if (cek.prop("checked") == false) {
+//         $("button").attr("disabled", "disabled").addClass("disabled");
+//     }
+// });
 
 // Enable Button Reset
 $(document).ready(function () {

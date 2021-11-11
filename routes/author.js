@@ -265,8 +265,8 @@ router.get('/qform', async (req, res) => {
     { link: `${link.qbank_add}`, icon: 'fas fa-bug', label: 'Mass Edit', status: 'pending' },
     { link: `${link.qbank_add}`, icon: 'fas fa-bug', label: 'Mass Delete', status: 'pending' },
   ]
-  let qforms = await QForm.find({}).lean()
   try {
+    let qforms = await QForm.find({ userId: req.user.id }).lean()
     res.render('author/qform-index', {
       navTitle: 'Qform Panel',
       navMenu,
@@ -359,6 +359,7 @@ router.route('/qform-add')
       case 0:
         body = req.body
         body.step = step
+        body.userId = req.user.id
         try {
           let qform = new QForm(body)
           await qform.save()

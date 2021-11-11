@@ -119,6 +119,7 @@ app.use('/respondent', ensureAuth, require('./routes/respondent'))
 // @note    Authenticated user have role as respondent
 app.use('/api/v1', [ensureAPIAuth, ensureAPIRole], require('./routes/api_v1'))
 
+app.use('/anon', require('./routes/anon'))
 app.use('/manual', require('./routes/manual'))
 
 // TRY CONNECT TO DB THEN START SERVER

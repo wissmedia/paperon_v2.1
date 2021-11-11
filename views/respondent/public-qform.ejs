@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<!-- HEAD PARTIALS -->
+<%- include('../partials/head.ejs') %>
+
+  <body>
+    <!-- NAV PARTIALS -->
+    <%- include('../partials/nav.ejs') %>
+      <div class="container">
+        <div class="row-content">
+
+          <% if (qforms) { %>
+            <form action="<%= link.public %>/?id=<%= qforms._id %>" method="POST">
+              <div class="content fadeInKiri">
+                <div class="line"></div>
+                <!-- Judul -->
+                <div class="bungkus-content edit">
+                  <label for="judul">Judul :</label>
+                  <input type="text" id="judul" class="text" disabled value="<%= qforms.title %>">
+                </div>
+                <% if (qforms.desc !="" ) { %>
+                  <!-- Subjudul -->
+                  <div class="bungkus-content edit">
+                    <label for="subjudul">Deskripsi :</label>
+                    <textarea name="subjudul" id="subjudul" cols="30" rows="10" disabled><%= qforms.desc %></textarea>
+                  </div>
+                  <% } %>
+                    <div class="bungkus-content edit">
+                      <!-- Created DateTime -->
+                      <p>
+                        Created : <%= simpleDate(qforms.createdAt) %>
+                      </p>
+                      <!-- Last Update DateTime -->
+                      <p>Author : <%= qforms.userId.displayName %>
+                      </p>
+                    </div>
+              </div>
+              <div class="content fadeInKiri">
+                <div class="line"></div>
+                <div class="bungkus-content">
+                </div>
+                <% qforms.qbankArray.forEach(item=> { %>
+                  <div class="bungkus-content solid-border">
+                    <div class="nomor-urut putih pending">
+                      <label>Priority :</label>
+                      <input type="number" class="input-nomor" value="<%= item.priority %>">
+                    </div>
+                    <%- respoQRender(item.id, item.data, false) %>
+                  </div>
+                  <% }) %>
+              </div>
+
+              <center>
+                <button type="submit" class="tombol-md tmb-utama bunder fadeInBawah">Kirim</button>
+              </center>
+            </form>
+
+            <% } else { %>
+              <div class="content fadeInAtas">
+                <div class="line"></div>
+                <div class="bungkus-content edit">
+                  <h3>Tidak Ada Data</h3>
+                </div>
+              </div>
+              <% } %>
+
+        </div>
+      </div>
+      <!-- MODAL MENU -->
+      <%- include('../partials/modal-auth.ejs') %>
+        <!-- FOOTER PARTIALS -->
+        <%- include('../partials/footer.ejs') %>
+          <!-- SCRIPT PARTIALS -->
+          <%- include('../partials/scripts.ejs') %>
+            <!-- Add Qbank Script -->
+            <script src="/custom/js/quesioner-view.js"></script>
+  </body>
+
+</html>
